@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_marginBottom="10dp"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/customborder">
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:padding="4dp"
+                android:id="@+id/imageCover"
+                android:layout_width="105dp"
+                android:layout_height="145dp"/>
+
+            <TextView
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:padding="4dp"
+                android:layout_toRightOf="@id/imageCover"
+                android:text="GameName"
+                android:id="@+id/textName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:padding="4dp"
+                android:layout_toRightOf="@id/imageCover"
+                android:text="Platform"
+                android:layout_below="@id/textName"
+                android:id="@+id/textPlatform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:textStyle="italic"
+                android:padding="4dp"
+                android:layout_toRightOf="@id/imageCover"
+                android:layout_below="@id/textPlatform"
+                android:id="@+id/textCompany"
+                android:text="Company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Rating"
+                android:id="@+id/textRating"
+                android:layout_toRightOf="@id/imageCover"
+                android:layout_below="@id/textCompany"
+                android:padding="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Available"
+                android:id="@+id/textAvailability"
+                android:layout_toRightOf="@id/imageCover"
+                android:layout_below="@id/textRating"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_toRightOf="@id/imageCover"
+                android:layout_below="@id/textRating"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="end"
+                android:text="Price"
+                android:id="@+id/textPrice"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
