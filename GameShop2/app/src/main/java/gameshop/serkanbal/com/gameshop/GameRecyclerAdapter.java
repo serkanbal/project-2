@@ -114,4 +114,9 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<GameViewHolder> {
     public int getItemCount() {
         return mGames.size();
     }
+
+    public void replaceData(List<Game> newList){
+        mGames = newList;
+        notifyDataSetChanged();
+    }
 }
