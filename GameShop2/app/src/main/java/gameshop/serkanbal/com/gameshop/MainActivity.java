@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.List;
@@ -72,8 +74,23 @@ public class MainActivity extends AppCompatActivity {
         ComponentName componentName = new ComponentName(this, MainActivity.class);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
 
-        return true;
+        MenuItem search2 = menu.findItem(R.id.search);
 
+        MenuItemCompat.setOnActionExpandListener(search2, new MenuItemCompat.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
+                        List<Game> allGames = Helper.getInstance(MainActivity.this).getAllGames();
+                        mGameRecyclerAdapter.restoreData(allGames);
+                        return true;
+                    }
+                });
+
+        return true;
     }
 
     @Override
@@ -94,3 +111,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+

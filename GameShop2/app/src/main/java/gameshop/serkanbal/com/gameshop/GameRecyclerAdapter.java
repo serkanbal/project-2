@@ -38,7 +38,7 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<GameViewHolder> {
 
         holder.mTextName.setText(name);
         holder.mTextPlatform.setText(platform);
-        holder.mTextCompany.setText("From " + company);
+        holder.mTextCompany.setText("by " + company);
         holder.mAvailability.setText(availability);
         holder.mRating.setText(rating.toString());
         holder.mPrice.setText("$"+price.toString());
@@ -116,6 +116,11 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<GameViewHolder> {
     }
 
     public void replaceData(List<Game> newList){
+        mGames = newList;
+        notifyDataSetChanged();
+    }
+
+    public void restoreData(List<Game> newList){
         mGames = newList;
         notifyDataSetChanged();
     }
