@@ -41,7 +41,7 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<GameViewHolder> {
         holder.mTextPlatform.setText(platform);
         holder.mTextCompany.setText("by " + company);
         holder.mAvailability.setText(availability);
-        holder.mRating.setText(rating.toString());
+        holder.mRating.setText("Rated "+rating.toString());
         holder.mPrice.setText("$"+price.toString());
 
         if (platform.equals("PS4")) {
@@ -132,8 +132,4 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<GameViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void restoreData(List<Game> newList){
-        mGames = newList;
-        notifyDataSetChanged();
-    }
 }

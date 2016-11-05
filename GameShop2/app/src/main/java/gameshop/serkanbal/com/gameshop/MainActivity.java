@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemActionCollapse(MenuItem item) {
                         List<Game> allGames = Helper.getInstance(MainActivity.this).getAllGames();
-                        mGameRecyclerAdapter.restoreData(allGames);
+                        mGameRecyclerAdapter.replaceData(allGames);
                         mResultSize.setText("Number of Items: " + resultSize(allGames));
                         mSearchQuery="";
                         return true;
