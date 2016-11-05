@@ -313,4 +313,34 @@ public class Helper extends SQLiteOpenHelper {
         return itemName;
     }
 
+    public List<Game> getGameById(int detailId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + COL_NAME + ", " + COL_ID_DETAIL + ", " + COL_DESCRIPTION + ", " +
+                COL_COMPANY + ", " + COL_RATING + ", " + COL_ID_DETAIL + ", " + COL_AVAILABILITY +
+                ", " + COL_PLATFORM + ", " + COL_PRICE + " FROM " + INFO_TABLE_NAME + " JOIN " +
+                DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
+                DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " WHERE " + COL_ID_DETAIL + " = " + detailId;
+
+        Cursor cursor = db.rawQuery(query,null);
+
+        List<Game> game = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                game.add(new Game(
+                        cursor.getString(cursor.getColumnIndex(COL_NAME)),
+                        cursor.getString(cursor.getColumnIndex(COL_DESCRIPTION)),
+                        cursor.getString(cursor.getColumnIndex(COL_COMPANY)),
+                        cursor.getString(cursor.getColumnIndex(COL_PLATFORM)),
+                        cursor.getString(cursor.getColumnIndex(COL_AVAILABILITY)),
+                        cursor.getDouble(cursor.getColumnIndex(COL_RATING)),
+                        cursor.getDouble(cursor.getColumnIndex(COL_PRICE)),
+                        cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL))));
+                cursor.moveToNext();
+            }cursor.close();
+        }
+        return game;
+    }
+
 }

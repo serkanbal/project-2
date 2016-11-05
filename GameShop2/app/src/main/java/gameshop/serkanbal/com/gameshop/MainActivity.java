@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView mFilterButton;
     String mSearchQuery = "";
     TextView mResultSize;
+    SearchView mSearcView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,9 +142,9 @@ public class MainActivity extends AppCompatActivity {
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         //SearchView'da support.widget olanı seç
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        mSearcView = (SearchView) menu.findItem(R.id.search).getActionView();
         ComponentName componentName = new ComponentName(this, MainActivity.class);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
+        mSearcView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
 
         MenuItem search2 = menu.findItem(R.id.search);
 
@@ -182,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
             mSearchQuery = intent.getStringExtra(SearchManager.QUERY);
             mGameRecyclerAdapter.replaceData(searchList);
             mResultSize.setText("Number of Items: " + resultSize(searchList));
+            mSearcView.clearFocus();
         }
     }
 

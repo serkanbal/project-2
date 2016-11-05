@@ -1,5 +1,6 @@
 package gameshop.serkanbal.com.gameshop;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,9 +13,11 @@ import android.widget.TextView;
 public class GameViewHolder extends RecyclerView.ViewHolder {
     public TextView mTextName, mTextPlatform, mTextCompany, mAvailability, mRating, mPrice;
     public ImageView mImageCover;
+    public CardView mCardView;
 
     public GameViewHolder(View itemView) {
         super(itemView);
+        mCardView = (CardView) itemView.findViewById(R.id.card_view);
         mTextName = (TextView) itemView.findViewById(R.id.textName);
         mTextPlatform = (TextView) itemView.findViewById(R.id.textPlatform);
         mTextCompany = (TextView) itemView.findViewById(R.id.textCompany);

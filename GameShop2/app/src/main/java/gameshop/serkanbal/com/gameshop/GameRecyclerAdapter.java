@@ -1,5 +1,6 @@
 package gameshop.serkanbal.com.gameshop;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,7 +28,7 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<GameViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(GameViewHolder holder, int position) {
+    public void onBindViewHolder(final GameViewHolder holder, int position) {
         String name = mGames.get(position).getName();
         String platform = mGames.get(position).getPlatform();
         String company = mGames.get(position).getCompany();
@@ -53,6 +54,7 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<GameViewHolder> {
             holder.mTextPlatform.setBackgroundColor(Color.GRAY);
             holder.mTextPlatform.setTextColor(Color.WHITE);
         }
+
 
         switch (idDetail) {
             case 1:
@@ -107,6 +109,16 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<GameViewHolder> {
                 //
                 break;
         }
+
+        holder.mCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), DetailActivity.class);
+                intent.putExtra(DetailActivity.ITEM_ID_KEY,
+                        mGames.get(holder.getAdapterPosition()).getIdDetail());
+                view.getContext().startActivity(intent);
+            }
+        });
 
     }
 
