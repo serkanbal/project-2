@@ -107,6 +107,96 @@ public class Helper extends SQLiteOpenHelper {
         return game;
     }
 
+    public List<Game> getAllGamesFilteredByPrice() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + COL_NAME + ", " + COL_ID_DETAIL + ", " + COL_DESCRIPTION + ", " +
+                COL_COMPANY + ", " + COL_RATING + ", " + COL_ID_DETAIL + ", " + COL_AVAILABILITY +
+                ", " + COL_PLATFORM + ", " + COL_PRICE + " FROM " + INFO_TABLE_NAME + " JOIN " +
+                DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
+                DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " ORDER BY " + COL_PRICE;
+
+        Cursor cursor = db.rawQuery(query,null);
+
+        List<Game> game = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                game.add(new Game(
+                        cursor.getString(cursor.getColumnIndex(COL_NAME)),
+                        cursor.getString(cursor.getColumnIndex(COL_DESCRIPTION)),
+                        cursor.getString(cursor.getColumnIndex(COL_COMPANY)),
+                        cursor.getString(cursor.getColumnIndex(COL_PLATFORM)),
+                        cursor.getString(cursor.getColumnIndex(COL_AVAILABILITY)),
+                        cursor.getDouble(cursor.getColumnIndex(COL_RATING)),
+                        cursor.getDouble(cursor.getColumnIndex(COL_PRICE)),
+                        cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL))));
+                cursor.moveToNext();
+            }cursor.close();
+        }
+        return game;
+    }
+
+    public List<Game> getAllGamesFilteredByPlatform() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + COL_NAME + ", " + COL_ID_DETAIL + ", " + COL_DESCRIPTION + ", " +
+                COL_COMPANY + ", " + COL_RATING + ", " + COL_ID_DETAIL + ", " + COL_AVAILABILITY +
+                ", " + COL_PLATFORM + ", " + COL_PRICE + " FROM " + INFO_TABLE_NAME + " JOIN " +
+                DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
+                DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " ORDER BY " + COL_PLATFORM;
+
+        Cursor cursor = db.rawQuery(query,null);
+
+        List<Game> game = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                game.add(new Game(
+                        cursor.getString(cursor.getColumnIndex(COL_NAME)),
+                        cursor.getString(cursor.getColumnIndex(COL_DESCRIPTION)),
+                        cursor.getString(cursor.getColumnIndex(COL_COMPANY)),
+                        cursor.getString(cursor.getColumnIndex(COL_PLATFORM)),
+                        cursor.getString(cursor.getColumnIndex(COL_AVAILABILITY)),
+                        cursor.getDouble(cursor.getColumnIndex(COL_RATING)),
+                        cursor.getDouble(cursor.getColumnIndex(COL_PRICE)),
+                        cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL))));
+                cursor.moveToNext();
+            }cursor.close();
+        }
+        return game;
+    }
+
+    public List<Game> getAllGamesFilteredByRating() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + COL_NAME + ", " + COL_ID_DETAIL + ", " + COL_DESCRIPTION + ", " +
+                COL_COMPANY + ", " + COL_RATING + ", " + COL_ID_DETAIL + ", " + COL_AVAILABILITY +
+                ", " + COL_PLATFORM + ", " + COL_PRICE + " FROM " + INFO_TABLE_NAME + " JOIN " +
+                DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
+                DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " ORDER BY " + COL_RATING;
+
+        Cursor cursor = db.rawQuery(query,null);
+
+        List<Game> game = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                game.add(new Game(
+                        cursor.getString(cursor.getColumnIndex(COL_NAME)),
+                        cursor.getString(cursor.getColumnIndex(COL_DESCRIPTION)),
+                        cursor.getString(cursor.getColumnIndex(COL_COMPANY)),
+                        cursor.getString(cursor.getColumnIndex(COL_PLATFORM)),
+                        cursor.getString(cursor.getColumnIndex(COL_AVAILABILITY)),
+                        cursor.getDouble(cursor.getColumnIndex(COL_RATING)),
+                        cursor.getDouble(cursor.getColumnIndex(COL_PRICE)),
+                        cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL))));
+                cursor.moveToNext();
+            }cursor.close();
+        }
+        return game;
+    }
+
     public List<Game> itemSearchForNameOrType(String query) {
         SQLiteDatabase db = getReadableDatabase();
 
@@ -129,6 +219,93 @@ public class Helper extends SQLiteOpenHelper {
                         cursor.getDouble(cursor.getColumnIndex(COL_PRICE)),
                         cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL))
                         );
+                itemName.add(item);
+                cursor.moveToNext();
+            }
+        }cursor.close();
+        return itemName;
+    }
+
+    public List<Game> itemSearchForNameOrTypeFilterByPrice(String query) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + COL_NAME + ", " + COL_ID_DETAIL + ", " + COL_DESCRIPTION + ", " +
+                COL_COMPANY + ", " + COL_RATING + ", " + COL_ID_DETAIL + ", " + COL_AVAILABILITY +
+                ", " + COL_PLATFORM + ", " + COL_PRICE + " FROM " + INFO_TABLE_NAME + " JOIN " +
+                DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
+                DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " WHERE " + COL_NAME + " LIKE " + "'%" + query + "%'" +
+                " OR " + COL_COMPANY + " LIKE " + "'%" + query + "%'" +
+                " OR " + COL_PLATFORM + " LIKE " + "'%" + query + "%'" + " ORDER BY " + COL_PRICE,null);
+
+        List<Game> itemName = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                Game item = new Game(cursor.getString(cursor.getColumnIndex(COL_NAME)), null,
+                        cursor.getString(cursor.getColumnIndex(COL_COMPANY)),
+                        cursor.getString(cursor.getColumnIndex(COL_PLATFORM)),
+                        cursor.getString(cursor.getColumnIndex(COL_AVAILABILITY)),
+                        cursor.getDouble(cursor.getColumnIndex(COL_RATING)),
+                        cursor.getDouble(cursor.getColumnIndex(COL_PRICE)),
+                        cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL))
+                );
+                itemName.add(item);
+                cursor.moveToNext();
+            }
+        }cursor.close();
+        return itemName;
+    }
+
+    public List<Game> itemSearchForNameOrTypeFilterByRating(String query) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + COL_NAME + ", " + COL_ID_DETAIL + ", " + COL_DESCRIPTION + ", " +
+                COL_COMPANY + ", " + COL_RATING + ", " + COL_ID_DETAIL + ", " + COL_AVAILABILITY +
+                ", " + COL_PLATFORM + ", " + COL_PRICE + " FROM " + INFO_TABLE_NAME + " JOIN " +
+                DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
+                DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " WHERE " + COL_NAME + " LIKE " + "'%" + query + "%'" +
+                " OR " + COL_COMPANY + " LIKE " + "'%" + query + "%'" +
+                " OR " + COL_PLATFORM + " LIKE " + "'%" + query + "%'" + " ORDER BY " + COL_RATING,null);
+
+        List<Game> itemName = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                Game item = new Game(cursor.getString(cursor.getColumnIndex(COL_NAME)), null,
+                        cursor.getString(cursor.getColumnIndex(COL_COMPANY)),
+                        cursor.getString(cursor.getColumnIndex(COL_PLATFORM)),
+                        cursor.getString(cursor.getColumnIndex(COL_AVAILABILITY)),
+                        cursor.getDouble(cursor.getColumnIndex(COL_RATING)),
+                        cursor.getDouble(cursor.getColumnIndex(COL_PRICE)),
+                        cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL))
+                );
+                itemName.add(item);
+                cursor.moveToNext();
+            }
+        }cursor.close();
+        return itemName;
+    }
+
+    public List<Game> itemSearchForNameOrTypeFilterByPlatform(String query) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + COL_NAME + ", " + COL_ID_DETAIL + ", " + COL_DESCRIPTION + ", " +
+                COL_COMPANY + ", " + COL_RATING + ", " + COL_ID_DETAIL + ", " + COL_AVAILABILITY +
+                ", " + COL_PLATFORM + ", " + COL_PRICE + " FROM " + INFO_TABLE_NAME + " JOIN " +
+                DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
+                DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " WHERE " + COL_NAME + " LIKE " + "'%" + query + "%'" +
+                " OR " + COL_COMPANY + " LIKE " + "'%" + query + "%'" +
+                " OR " + COL_PLATFORM + " LIKE " + "'%" + query + "%'" + " ORDER BY " + COL_PLATFORM,null);
+
+        List<Game> itemName = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                Game item = new Game(cursor.getString(cursor.getColumnIndex(COL_NAME)), null,
+                        cursor.getString(cursor.getColumnIndex(COL_COMPANY)),
+                        cursor.getString(cursor.getColumnIndex(COL_PLATFORM)),
+                        cursor.getString(cursor.getColumnIndex(COL_AVAILABILITY)),
+                        cursor.getDouble(cursor.getColumnIndex(COL_RATING)),
+                        cursor.getDouble(cursor.getColumnIndex(COL_PRICE)),
+                        cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL))
+                );
                 itemName.add(item);
                 cursor.moveToNext();
             }

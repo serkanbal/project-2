@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/filter_price"
+          android:icon="@android:drawable/ic_menu_share"
+          android:title="Filter By Price"/>
+
+    <item android:id="@+id/filter_rating"
+          android:icon="@android:drawable/ic_menu_share"
+          android:title="Filter By Rating"/>
+
+    <item android:id="@+id/filter_platform"
+          android:icon="@android:drawable/ic_menu_share"
+          android:title="Filter By Platform"/>
+</menu>

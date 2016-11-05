@@ -5,29 +5,36 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     GameRecyclerAdapter mGameRecyclerAdapter;
+    ImageView mFilterButton;
+    String mSearchQuery = "";
+    TextView mResultSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mFilterButton = (ImageView) findViewById(R.id.filterbutton);
+        mResultSize = (TextView) findViewById(R.id.resultSize);
 
         //DB Initialize
         AssetHelper dbSetup = new AssetHelper(MainActivity.this);
@@ -46,17 +53,81 @@ public class MainActivity extends AppCompatActivity {
         mGameRecyclerAdapter = new GameRecyclerAdapter(allGames);
         mRecyclerView.setAdapter(mGameRecyclerAdapter);
 
+        mResultSize.setText("Number of Items: " + resultSize(allGames));
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+
+        //Floating Menu
+        registerForContextMenu(mFilterButton);
+        mFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                openContextMenu(mFilterButton);
             }
         });
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.filter_menu, menu);
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.filter_price:
+                if (!mSearchQuery.equals("")) {
+                    List<Game> filteredByPrice = Helper.getInstance(this).
+                            itemSearchForNameOrTypeFilterByPrice(mSearchQuery);
+                    mGameRecyclerAdapter.replaceData(filteredByPrice);
+                    mResultSize.setText("Number of Items: " + resultSize(filteredByPrice));
+                } else {
+                    List<Game> allFilteredByPrice = Helper.getInstance(this).getAllGamesFilteredByPrice();
+                    mGameRecyclerAdapter.replaceData(allFilteredByPrice);
+                    mResultSize.setText("Number of Items: " + resultSize(allFilteredByPrice));
+                }
+                return true;
+            case R.id.filter_platform:
+                if (!mSearchQuery.equals("")) {
+                    List<Game> filteredByPlatform = Helper.getInstance(this).
+                            itemSearchForNameOrTypeFilterByPlatform(mSearchQuery);
+                    mGameRecyclerAdapter.replaceData(filteredByPlatform);
+                    mResultSize.setText("Number of Items: " + resultSize(filteredByPlatform));
+                    //mResultSize.setText(R.string.search_size + resultSize(filteredByPrice));
+                } else {
+                    List<Game> allFilteredByPlatform = Helper.getInstance(this).getAllGamesFilteredByPlatform();
+                    mGameRecyclerAdapter.replaceData(allFilteredByPlatform);
+                    mResultSize.setText("Number of Items: " + resultSize(allFilteredByPlatform));
+                }
+                return true;
+            case R.id.filter_rating:
+                if (!mSearchQuery.equals("")) {
+                    List<Game> filteredByRating = Helper.getInstance(this).
+                            itemSearchForNameOrTypeFilterByRating(mSearchQuery);
+                    mGameRecyclerAdapter.replaceData(filteredByRating);
+                    mResultSize.setText("Number of Items: " + resultSize(filteredByRating));
+                } else {
+                    List<Game> allFilteredByRating = Helper.getInstance(this).getAllGamesFilteredByRating();
+                    mGameRecyclerAdapter.replaceData(allFilteredByRating);
+                    mResultSize.setText("Number of Items: " + resultSize(allFilteredByRating));
+                }
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     @Override
@@ -86,6 +157,8 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onMenuItemActionCollapse(MenuItem item) {
                         List<Game> allGames = Helper.getInstance(MainActivity.this).getAllGames();
                         mGameRecyclerAdapter.restoreData(allGames);
+                        mResultSize.setText("Number of Items: " + resultSize(allGames));
+                        mSearchQuery="";
                         return true;
                     }
                 });
@@ -106,8 +179,16 @@ public class MainActivity extends AppCompatActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             List<Game> searchList = Helper.getInstance(this).
                     itemSearchForNameOrType(query);
+            mSearchQuery = intent.getStringExtra(SearchManager.QUERY);
             mGameRecyclerAdapter.replaceData(searchList);
+            mResultSize.setText("Number of Items: " + resultSize(searchList));
         }
+    }
+
+    public String resultSize(List<Game> list) {
+        Integer a = list.size();
+        String b = a.toString();
+        return b;
     }
 
 }
