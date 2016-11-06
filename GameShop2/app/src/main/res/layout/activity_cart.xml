@@ -12,19 +12,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="gameshop.serkanbal.com.gameshop.CartActivity">
 
-    <TextView
-        android:id="@+id/deneme1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/deneme2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/deneme3"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="10dp"
+        android:id="@+id/cartrecyclerview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>
