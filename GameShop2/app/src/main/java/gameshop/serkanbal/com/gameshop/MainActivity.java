@@ -87,6 +87,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_goCart:
+                Intent intent = new Intent(MainActivity.this,CartActivity.class);
+                startActivity(intent);
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.filter_price:
@@ -194,4 +206,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-

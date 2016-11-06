@@ -1,5 +1,7 @@
 package gameshop.serkanbal.com.gameshop;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -44,13 +46,13 @@ public class DetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        int id = getIntent().getIntExtra(ITEM_ID_KEY, -1);
+        final int id = getIntent().getIntExtra(ITEM_ID_KEY, -1);
 
         if (id == -1) {
             finish();
         }
 
-        List<Game> gameDetailById = Helper.getInstance(this).
+        final List<Game> gameDetailById = Helper.getInstance(this).
                 getGameById(id);
 
         if (gameDetailById == null) {
@@ -138,6 +140,17 @@ public class DetailActivity extends AppCompatActivity {
                 if (availableText.equals("Available")) {
                     Snackbar.make(view, getString(R.string.add_chart_sucess), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+
+                    //Send item detail id to cart activity
+
+                    SharedPreferences sharedPreferences = DetailActivity.this.
+                            getSharedPreferences("key_detailId",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    Integer detailId = gameDetailById.get(0).getIdDetail();
+                    editor.putInt(detailId.toString(), detailId);
+                    editor.commit();
+
                 } else {
                     Snackbar.make(view, getString(R.string.add_chart_fail), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();

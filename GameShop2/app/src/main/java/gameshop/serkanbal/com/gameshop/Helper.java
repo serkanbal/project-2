@@ -52,6 +52,18 @@ public class Helper extends SQLiteOpenHelper {
     private static final String DETAIL_TABLE_DELETE = "DROP TABLE IF EXISTS " +
             DETAIL_TABLE_NAME;
 
+    public static final String CART_TABLE_NAME = "cart";
+    public static final String COL_ID_CART = "id_cart";
+    public static final String COL_ITEM_DETAILID = "item_detailId";
+
+    public static final String CART_TABLE_CREATE = "CREATE TABLE " + CART_TABLE_NAME + " (" +
+            COL_ID_CART + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            COL_ITEM_DETAILID + " INTEGER )";
+
+    public static final String CART_TABLE_DELETE = "DROP TABLE IF EXISTS " +
+            CART_TABLE_NAME;
+
+
     private static Helper sInstance;
 
     public static Helper getInstance(Context context) {
@@ -68,12 +80,14 @@ public class Helper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(INFO_TABLE_CREATE);
         sqLiteDatabase.execSQL(DETAIL_TABLE_CREATE);
+        sqLiteDatabase.execSQL(CART_TABLE_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL(INFO_TABLE_DELETE);
         sqLiteDatabase.execSQL(DETAIL_TABLE_DELETE);
+        sqLiteDatabase.execSQL(CART_TABLE_DELETE);
         onCreate(sqLiteDatabase);
     }
 
@@ -86,7 +100,7 @@ public class Helper extends SQLiteOpenHelper {
                 DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
                 DETAIL_TABLE_NAME + "." + COL_ID_INFO2;
 
-        Cursor cursor = db.rawQuery(query,null);
+        Cursor cursor = db.rawQuery(query, null);
 
         List<Game> game = new ArrayList<>();
 
@@ -102,7 +116,8 @@ public class Helper extends SQLiteOpenHelper {
                         cursor.getDouble(cursor.getColumnIndex(COL_PRICE)),
                         cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL))));
                 cursor.moveToNext();
-            }cursor.close();
+            }
+            cursor.close();
         }
         return game;
     }
@@ -116,7 +131,7 @@ public class Helper extends SQLiteOpenHelper {
                 DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
                 DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " ORDER BY " + COL_PRICE;
 
-        Cursor cursor = db.rawQuery(query,null);
+        Cursor cursor = db.rawQuery(query, null);
 
         List<Game> game = new ArrayList<>();
 
@@ -132,7 +147,8 @@ public class Helper extends SQLiteOpenHelper {
                         cursor.getDouble(cursor.getColumnIndex(COL_PRICE)),
                         cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL))));
                 cursor.moveToNext();
-            }cursor.close();
+            }
+            cursor.close();
         }
         return game;
     }
@@ -146,7 +162,7 @@ public class Helper extends SQLiteOpenHelper {
                 DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
                 DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " ORDER BY " + COL_PLATFORM;
 
-        Cursor cursor = db.rawQuery(query,null);
+        Cursor cursor = db.rawQuery(query, null);
 
         List<Game> game = new ArrayList<>();
 
@@ -162,7 +178,8 @@ public class Helper extends SQLiteOpenHelper {
                         cursor.getDouble(cursor.getColumnIndex(COL_PRICE)),
                         cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL))));
                 cursor.moveToNext();
-            }cursor.close();
+            }
+            cursor.close();
         }
         return game;
     }
@@ -176,7 +193,7 @@ public class Helper extends SQLiteOpenHelper {
                 DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
                 DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " ORDER BY " + COL_RATING;
 
-        Cursor cursor = db.rawQuery(query,null);
+        Cursor cursor = db.rawQuery(query, null);
 
         List<Game> game = new ArrayList<>();
 
@@ -192,7 +209,8 @@ public class Helper extends SQLiteOpenHelper {
                         cursor.getDouble(cursor.getColumnIndex(COL_PRICE)),
                         cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL))));
                 cursor.moveToNext();
-            }cursor.close();
+            }
+            cursor.close();
         }
         return game;
     }
@@ -206,7 +224,7 @@ public class Helper extends SQLiteOpenHelper {
                 DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
                 DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " WHERE " + COL_NAME + " LIKE " + "'%" + query + "%'" +
                 " OR " + COL_COMPANY + " LIKE " + "'%" + query + "%'" +
-                " OR " + COL_PLATFORM + " LIKE " + "'%" + query + "%'",null);
+                " OR " + COL_PLATFORM + " LIKE " + "'%" + query + "%'", null);
 
         List<Game> itemName = new ArrayList<>();
         if (cursor.moveToFirst()) {
@@ -218,11 +236,12 @@ public class Helper extends SQLiteOpenHelper {
                         cursor.getDouble(cursor.getColumnIndex(COL_RATING)),
                         cursor.getDouble(cursor.getColumnIndex(COL_PRICE)),
                         cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL))
-                        );
+                );
                 itemName.add(item);
                 cursor.moveToNext();
             }
-        }cursor.close();
+        }
+        cursor.close();
         return itemName;
     }
 
@@ -235,7 +254,7 @@ public class Helper extends SQLiteOpenHelper {
                 DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
                 DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " WHERE " + COL_NAME + " LIKE " + "'%" + query + "%'" +
                 " OR " + COL_COMPANY + " LIKE " + "'%" + query + "%'" +
-                " OR " + COL_PLATFORM + " LIKE " + "'%" + query + "%'" + " ORDER BY " + COL_PRICE,null);
+                " OR " + COL_PLATFORM + " LIKE " + "'%" + query + "%'" + " ORDER BY " + COL_PRICE, null);
 
         List<Game> itemName = new ArrayList<>();
         if (cursor.moveToFirst()) {
@@ -251,7 +270,8 @@ public class Helper extends SQLiteOpenHelper {
                 itemName.add(item);
                 cursor.moveToNext();
             }
-        }cursor.close();
+        }
+        cursor.close();
         return itemName;
     }
 
@@ -264,7 +284,7 @@ public class Helper extends SQLiteOpenHelper {
                 DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
                 DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " WHERE " + COL_NAME + " LIKE " + "'%" + query + "%'" +
                 " OR " + COL_COMPANY + " LIKE " + "'%" + query + "%'" +
-                " OR " + COL_PLATFORM + " LIKE " + "'%" + query + "%'" + " ORDER BY " + COL_RATING,null);
+                " OR " + COL_PLATFORM + " LIKE " + "'%" + query + "%'" + " ORDER BY " + COL_RATING, null);
 
         List<Game> itemName = new ArrayList<>();
         if (cursor.moveToFirst()) {
@@ -280,7 +300,8 @@ public class Helper extends SQLiteOpenHelper {
                 itemName.add(item);
                 cursor.moveToNext();
             }
-        }cursor.close();
+        }
+        cursor.close();
         return itemName;
     }
 
@@ -293,7 +314,7 @@ public class Helper extends SQLiteOpenHelper {
                 DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
                 DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " WHERE " + COL_NAME + " LIKE " + "'%" + query + "%'" +
                 " OR " + COL_COMPANY + " LIKE " + "'%" + query + "%'" +
-                " OR " + COL_PLATFORM + " LIKE " + "'%" + query + "%'" + " ORDER BY " + COL_PLATFORM,null);
+                " OR " + COL_PLATFORM + " LIKE " + "'%" + query + "%'" + " ORDER BY " + COL_PLATFORM, null);
 
         List<Game> itemName = new ArrayList<>();
         if (cursor.moveToFirst()) {
@@ -309,7 +330,8 @@ public class Helper extends SQLiteOpenHelper {
                 itemName.add(item);
                 cursor.moveToNext();
             }
-        }cursor.close();
+        }
+        cursor.close();
         return itemName;
     }
 
@@ -322,7 +344,7 @@ public class Helper extends SQLiteOpenHelper {
                 DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
                 DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " WHERE " + COL_ID_DETAIL + " = " + detailId;
 
-        Cursor cursor = db.rawQuery(query,null);
+        Cursor cursor = db.rawQuery(query, null);
 
         List<Game> game = new ArrayList<>();
 
@@ -338,9 +360,34 @@ public class Helper extends SQLiteOpenHelper {
                         cursor.getDouble(cursor.getColumnIndex(COL_PRICE)),
                         cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL))));
                 cursor.moveToNext();
-            }cursor.close();
+            }
+            cursor.close();
         }
         return game;
     }
 
+    public Game getCartGameById(int detailId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + COL_NAME + ", " + COL_ID_DETAIL + ", " + COL_DESCRIPTION + ", " +
+                COL_COMPANY + ", " + COL_RATING + ", " + COL_ID_DETAIL + ", " + COL_AVAILABILITY +
+                ", " + COL_PLATFORM + ", " + COL_PRICE + " FROM " + INFO_TABLE_NAME + " JOIN " +
+                DETAIL_TABLE_NAME + " ON " + INFO_TABLE_NAME + "." + COL_ID_INFO + " = " +
+                DETAIL_TABLE_NAME + "." + COL_ID_INFO2 + " WHERE " + COL_ID_DETAIL + " = " + detailId;
+
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            String name = cursor.getString(cursor.getColumnIndex(COL_NAME));
+            String platform = cursor.getString(cursor.getColumnIndex(COL_PLATFORM));
+            Double price = cursor.getDouble(cursor.getColumnIndex(COL_PRICE));
+            int detail = cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL));
+
+            Game game = new Game(name,null,null,platform,null,0,price,detail);
+            cursor.close();
+            return game;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
 }
