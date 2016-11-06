@@ -6,17 +6,22 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
+import static gameshop.serkanbal.com.gameshop.R.id.fab;
+
 public class DetailActivity extends AppCompatActivity {
     public static final String ITEM_ID_KEY = "detailId";
     TextView mDetailName, mDetailDescription, mDetailCompany, mDetailPlatform, mDetailPrice,
     mDetailAvailability;
     ImageView mDetailRating, mDetailAvailabilityIcon, mScrollingHeader;
+    FloatingActionButton mFab;
 
 
     @Override
@@ -33,18 +38,10 @@ public class DetailActivity extends AppCompatActivity {
         mDetailAvailability = (TextView) findViewById(R.id.detail_availableText);
         mDetailAvailabilityIcon = (ImageView) findViewById(R.id.detail_availableIcon);
         mScrollingHeader = (ImageView) findViewById(R.id.header);
+        mFab = (FloatingActionButton) findViewById(fab);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         int id = getIntent().getIntExtra(ITEM_ID_KEY, -1);
@@ -82,10 +79,10 @@ public class DetailActivity extends AppCompatActivity {
             mDetailRating.setImageResource(R.drawable.rsz_star1);
         }
 
-        String availableText = gameDetailById.get(0).getAvailability();
+        final String availableText = gameDetailById.get(0).getAvailability();
         if (availableText.equals("Available")) {
             mDetailAvailability.setTextColor(getResources().getColor(R.color.grass_green));
-            mDetailAvailabilityIcon.setImageResource(R.drawable.ic_check_black_24dp);
+            mDetailAvailabilityIcon.setImageResource(R.drawable.ic_check_circle_black_24dp);
             mDetailAvailabilityIcon.setColorFilter(ContextCompat.getColor(DetailActivity.this,
                     R.color.grass_green));
         } else {
@@ -93,6 +90,9 @@ public class DetailActivity extends AppCompatActivity {
             mDetailAvailabilityIcon.setImageResource(R.drawable.ic_error_black_24dp);
             mDetailAvailabilityIcon.setColorFilter(ContextCompat.getColor(DetailActivity.this,
                     R.color.red));
+            mFab.setImageResource(R.drawable.ic_block_black_24dp);
+            mFab.setColorFilter(ContextCompat.getColor(DetailActivity.this,
+                    R.color.disabled_gray));
         }
 
         switch (gameDetailById.get(0).getIdDetail()) {
@@ -131,5 +131,27 @@ public class DetailActivity extends AppCompatActivity {
             default:
                 break;
         }
+
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (availableText.equals("Available")) {
+                    Snackbar.make(view, getString(R.string.add_chart_sucess), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else {
+                    Snackbar.make(view, getString(R.string.add_chart_fail), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            }
+        });
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_scrolling, menu);
+        return true;
     }
 }

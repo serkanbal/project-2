@@ -2,9 +2,15 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="gameshop.serkanbal.com.gameshop.DetailActivity">
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never"/>
+
+    <item android:id="@+id/action_goWishlist"
+          android:icon="@drawable/ic_heart"
+          android:title="@string/icon_heart"
+          app:showAsAction="always" />
+
+    <item android:id="@+id/action_goCart"
+          android:icon="@drawable/ic_cart"
+          android:title="@string/icon_cart"
+          app:showAsAction="always" />
+
 </menu>

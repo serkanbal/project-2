@@ -7,8 +7,18 @@
     <item
         android:id="@+id/search"
         android:title="Search"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@drawable/ic_magnify"
         app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="android.support.v7.widget.SearchView" />
+
+    <item android:id="@+id/action_goWishlist"
+          android:icon="@drawable/ic_heart"
+          android:title="@string/icon_heart"
+          app:showAsAction="always" />
+
+    <item android:id="@+id/action_goCart"
+          android:icon="@drawable/ic_cart"
+          android:title="@string/icon_cart"
+          app:showAsAction="always" />
 
 </menu>
