@@ -1,4 +1,4 @@
-package gameshop.serkanbal.com.gameshop;
+package gameshop.serkanbal.com.gameshop.Data;
 
 /**
  * Created by Serkan on 31/10/16.

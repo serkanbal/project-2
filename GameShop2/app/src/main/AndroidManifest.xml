@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".MainDetailActivity.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar"
@@ -27,15 +27,15 @@
                 android:resource="@xml/searchable"/>
         </activity>
         <activity
-            android:name=".DetailActivity"
+            android:name=".MainDetailActivity.DetailActivity"
             android:label="@string/title_activity_scrolling"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".MainDetailActivity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="gameshop.serkanbal.com.gameshop.MainActivity"/>
+                android:value="gameshop.serkanbal.com.gameshop.MainDetailActivity.MainActivity"/>
         </activity>
-        <activity android:name=".CartActivity">
+        <activity android:name=".Cart.CartActivity">
         </activity>
     </application>
 

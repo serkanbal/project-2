@@ -1,4 +1,4 @@
-package gameshop.serkanbal.com.gameshop;
+package gameshop.serkanbal.com.gameshop.MainDetailActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
+
+import gameshop.serkanbal.com.gameshop.Data.Game;
+import gameshop.serkanbal.com.gameshop.R;
 
 /**
  * Created by Serkan on 01/11/16.

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="gameshop.serkanbal.com.gameshop.DetailActivity">
+    tools:context="gameshop.serkanbal.com.gameshop.MainDetailActivity.DetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"

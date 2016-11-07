@@ -1,4 +1,4 @@
-package gameshop.serkanbal.com.gameshop;
+package gameshop.serkanbal.com.gameshop.Cart;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,9 +6,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import gameshop.serkanbal.com.gameshop.Data.Game;
+import gameshop.serkanbal.com.gameshop.Data.Helper;
+import gameshop.serkanbal.com.gameshop.R;
 
 public class CartActivity extends AppCompatActivity {
     List<Game> mList = new ArrayList<>();
@@ -45,6 +50,11 @@ public class CartActivity extends AppCompatActivity {
 
         mCartRecyclerAdapter = new CartRecyclerAdapter(mList);
         mCartRecyclerView.setAdapter(mCartRecyclerAdapter);
+
+        ItemTouchHelper.Callback callback =
+                new CartItemTouchHelper(mCartRecyclerAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(mCartRecyclerView);
     }
 
 }

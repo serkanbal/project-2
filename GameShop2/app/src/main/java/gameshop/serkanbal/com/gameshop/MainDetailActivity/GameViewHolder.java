@@ -1,10 +1,12 @@
-package gameshop.serkanbal.com.gameshop;
+package gameshop.serkanbal.com.gameshop.MainDetailActivity;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import gameshop.serkanbal.com.gameshop.R;
 
 /**
  * Created by Serkan on 01/11/16.
