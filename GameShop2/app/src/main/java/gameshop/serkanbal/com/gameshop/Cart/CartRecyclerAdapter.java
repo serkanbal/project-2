@@ -1,4 +1,4 @@
-package gameshop.serkanbal.com.gameshop;
+package gameshop.serkanbal.com.gameshop.Cart;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 
 import java.util.Collections;
 import java.util.List;
+
+import gameshop.serkanbal.com.gameshop.Data.Game;
+import gameshop.serkanbal.com.gameshop.R;
 
 /**
  * Created by Serkan on 06/11/16.
