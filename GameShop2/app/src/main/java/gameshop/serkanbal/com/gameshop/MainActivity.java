@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        //Floating Menu
+        //Floating Context Menu
         registerForContextMenu(mFilterButton);
         mFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this,CartActivity.class);
                 startActivity(intent);
                 break;
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -161,21 +160,20 @@ public class MainActivity extends AppCompatActivity {
         MenuItem search2 = menu.findItem(R.id.search);
 
         MenuItemCompat.setOnActionExpandListener(search2, new MenuItemCompat.OnActionExpandListener() {
-                    @Override
-                    public boolean onMenuItemActionExpand(MenuItem item) {
-                        return true;
-                    }
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
 
-                    @Override
-                    public boolean onMenuItemActionCollapse(MenuItem item) {
-                        List<Game> allGames = Helper.getInstance(MainActivity.this).getAllGames();
-                        mGameRecyclerAdapter.replaceData(allGames);
-                        mResultSize.setText("Number of Items: " + resultSize(allGames));
-                        mSearchQuery="";
-                        return true;
-                    }
-                });
-
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                List<Game> allGames = Helper.getInstance(MainActivity.this).getAllGames();
+                mGameRecyclerAdapter.replaceData(allGames);
+                mResultSize.setText("Number of Items: " + resultSize(allGames));
+                mSearchQuery="";
+                return true;
+            }
+        });
         return true;
     }
 

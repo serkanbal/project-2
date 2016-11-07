@@ -35,7 +35,7 @@ public class CartActivity extends AppCompatActivity {
             mList.add(game);
         }
 
-        //Setup the RecyclerView
+        //Setup the CartRecyclerView
         mCartRecyclerView  = (RecyclerView) findViewById(R.id.cartrecyclerview);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,

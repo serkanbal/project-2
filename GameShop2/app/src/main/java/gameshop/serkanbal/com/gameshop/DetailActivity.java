@@ -142,7 +142,6 @@ public class DetailActivity extends AppCompatActivity {
                             .setAction("Action", null).show();
 
                     //Send item detail id to cart activity
-
                     SharedPreferences sharedPreferences = DetailActivity.this.
                             getSharedPreferences("key_detailId",
                             Context.MODE_PRIVATE);
@@ -157,8 +156,6 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     @Override
