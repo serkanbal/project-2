@@ -72,5 +72,6 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartViewHolder>
         editor.commit();
         mCartGames.remove(position);
         notifyItemRemoved(position);
+        //
     }
 }
