@@ -1,4 +1,4 @@
-package gameshop.serkanbal.com.gameshop;
+package gameshop.serkanbal.com.gameshop.MainDetailActivity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,6 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+
+import gameshop.serkanbal.com.gameshop.Data.Game;
+import gameshop.serkanbal.com.gameshop.Data.Helper;
+import gameshop.serkanbal.com.gameshop.R;
 
 import static gameshop.serkanbal.com.gameshop.R.id.fab;
 

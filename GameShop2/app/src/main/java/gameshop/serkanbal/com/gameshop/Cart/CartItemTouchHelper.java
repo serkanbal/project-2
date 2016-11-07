@@ -1,4 +1,5 @@
-package gameshop.serkanbal.com.gameshop;
+package gameshop.serkanbal.com.gameshop.Cart;
+
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -16,12 +17,12 @@ public class CartItemTouchHelper extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public boolean isItemViewSwipeEnabled() {
+    public boolean isLongPressDragEnabled() {
         return true;
     }
 
     @Override
-    public boolean isLongPressDragEnabled() {
+    public boolean isItemViewSwipeEnabled() {
         return true;
     }
 
@@ -33,7 +34,8 @@ public class CartItemTouchHelper extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                          RecyclerView.ViewHolder target) {
         mAdapter.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
         return true;
     }
