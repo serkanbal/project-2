@@ -12,28 +12,53 @@
         android:layout_height="wrap_content"
         android:elevation="10dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/customborder">
 
+            <ImageView
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:id="@+id/cartImage"
+                android:layout_centerVertical="true"
+                android:padding="4dp"
+                android:layout_width="74dp"
+                android:layout_height="96dp"/>
+
             <TextView
+                android:layout_marginTop="10dp"
+                android:textSize="16dp"
+                android:layout_toRightOf="@id/cartImage"
+                android:textStyle="bold"
+                android:padding="4dp"
                 android:id="@+id/cartName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:padding="4dp"
+                android:layout_toRightOf="@id/cartImage"
+                android:layout_below="@id/cartName"
                 android:id="@+id/cartPlatform"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:layout_marginTop="3dp"
+                android:textSize="17dp"
+                android:padding="4dp"
+                android:layout_below="@id/cartPlatform"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:id="@+id/cartPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-        </LinearLayout>
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 
 </LinearLayout>

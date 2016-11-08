@@ -46,6 +46,63 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartViewHolder>
         holder.mCartName.setText(name);
         holder.mCartPlatform.setText(platform);
         holder.mCartPrice.setText("$" + price.toString());
+
+
+        switch (mCartGames.get(position).getIdDetail()) {
+            case 1:
+                holder.mCartImage.setImageResource(R.drawable.destiny_ps4);
+                break;
+            case 2:
+                holder.mCartImage.setImageResource(R.drawable.destiny_xb);
+                break;
+            case 3:
+                holder.mCartImage.setImageResource(R.drawable.lastofus_ps4);
+                break;
+            case 4:
+                holder.mCartImage.setImageResource(R.drawable.witcher_ps4);
+                break;
+            case 5:
+                holder.mCartImage.setImageResource(R.drawable.witcher_xb);
+                break;
+            case 6:
+                holder.mCartImage.setImageResource(R.drawable.witcher_pc);
+                break;
+            case 7:
+                holder.mCartImage.setImageResource(R.drawable.doom_ps4);
+                break;
+            case 8:
+                holder.mCartImage.setImageResource(R.drawable.doom_xb);
+                break;
+            case 9:
+                holder.mCartImage.setImageResource(R.drawable.doom_pc);
+                break;
+            case 10:
+                holder.mCartImage.setImageResource(R.drawable.uncharted4);
+                break;
+            case 11:
+                holder.mCartImage.setImageResource(R.drawable.forza_xb);
+                break;
+            case 12:
+                holder.mCartImage.setImageResource(R.drawable.forza_pc);
+                break;
+            case 13:
+                holder.mCartImage.setImageResource(R.drawable.gearsofwar4_xb);
+                break;
+            case 14:
+                holder.mCartImage.setImageResource(R.drawable.skyrim_ps4);
+                break;
+            case 15:
+                holder.mCartImage.setImageResource(R.drawable.skyrim_xb);
+                break;
+            case 16:
+                holder.mCartImage.setImageResource(R.drawable.skyrim_pc);
+                break;
+            default:
+                //
+                break;
+        }
+    
+    
     }
 
     @Override
@@ -83,7 +140,7 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartViewHolder>
         if (mCartGames.size() == 0) {
             mCartTotal.setText("Cart is empty");
         } else {
-            mCartTotal.setText("Cart total is: " + getCartTotal().toString());
+            mCartTotal.setText("Cart total is: $" + getCartTotal().toString());
         }
     }
 
@@ -92,6 +149,7 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartViewHolder>
         for (int i = 0; i < mCartGames.size(); i++) {
             sum = mCartGames.get(i).getPrice() + sum;
         }
-        return sum;
+        Double c = Math.round(sum * 100.0) / 100.0;
+        return c;
     }
 }

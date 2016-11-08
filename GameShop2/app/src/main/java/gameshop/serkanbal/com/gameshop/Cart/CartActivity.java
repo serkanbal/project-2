@@ -46,7 +46,7 @@ public class CartActivity extends AppCompatActivity {
         if (mList.size() == 0) {
             mCartTotal.setText("Cart is empty");
         } else {
-            mCartTotal.setText("Cart total is: " + getCartTotal().toString());
+            mCartTotal.setText("Cart total is: $" + getCartTotal().toString());
         }
 
         //Setup the CartRecyclerView
@@ -69,6 +69,7 @@ public class CartActivity extends AppCompatActivity {
         for (int i = 0; i < mList.size(); i++) {
             sum = mList.get(i).getPrice() + sum;
         }
-        return sum;
+        Double c = Math.round(sum * 100.0) / 100.0;
+        return c;
     }
 }
