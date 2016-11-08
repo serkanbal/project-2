@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,13 +29,17 @@ public class CartActivity extends AppCompatActivity {
     CartRecyclerAdapter mCartRecyclerAdapter;
     TextView mCartTotal;
     FloatingActionButton mFab;
+    ImageView mBigCart;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+
+
         mCartTotal = (TextView) findViewById(R.id.textCartTotal);
         mFab = (FloatingActionButton) findViewById(R.id.cartFab);
+        mBigCart = (ImageView) findViewById(R.id.cartBigCart);
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("key_detailId",
                 Context.MODE_PRIVATE);
@@ -53,9 +58,9 @@ public class CartActivity extends AppCompatActivity {
             mList.add(game);
         }
 
-
         if (mList.size() == 0) {
             mCartTotal.setText("Cart is empty");
+            mBigCart.setVisibility(View.VISIBLE);
         } else {
             mCartTotal.setText("Cart total is: $" + getCartTotal().toString());
         }
@@ -65,7 +70,7 @@ public class CartActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false);
         mCartRecyclerView.setLayoutManager(linearLayoutManager);
-        mCartRecyclerAdapter = new CartRecyclerAdapter(mList, mCartTotal);
+        mCartRecyclerAdapter = new CartRecyclerAdapter(mList, mCartTotal, mBigCart);
         ItemTouchHelper.Callback callback =
                 new CartItemTouchHelper(mCartRecyclerAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
@@ -88,7 +93,7 @@ public class CartActivity extends AppCompatActivity {
                         // set dialog message
                         alertDialogBuilder
                                 .setCancelable(false)
-                                .setPositiveButton("OK",
+                                .setPositiveButton("Thanks",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
                                                 mCartRecyclerAdapter.checkOut();

@@ -7,6 +7,7 @@
     <string name="action_settings">Settings</string>
     <string name="add_chart_sucess">Item has been added to the cart.</string>
     <string name="add_chart_fail">Item is currently not available.</string>
+    <string name="add_chart_item_already_at_cart">Item is already in cart.</string>
     <string name="icon_cart">My Cart</string>
     <string name="icon_heart">My Heart</string>
 </resources>

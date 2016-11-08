@@ -14,6 +14,6 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:text="Transaction successful, enjoy your products!"/>
+        android:text="Transaction successful.\nEnjoy your products!"/>
 
 </LinearLayout>

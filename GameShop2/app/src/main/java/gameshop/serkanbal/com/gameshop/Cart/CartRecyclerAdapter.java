@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Collections;
@@ -24,10 +25,12 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartViewHolder>
     List<Game> mCartGames;
     Context context;
     TextView mCartTotal;
+    ImageView mBigCart;
 
-    public CartRecyclerAdapter(List<Game> games, TextView cartTotal) {
+    public CartRecyclerAdapter(List<Game> games, TextView cartTotal, ImageView bigCart) {
         mCartGames = games;
         mCartTotal = cartTotal;
+        mBigCart = bigCart;
     }
 
     @Override
@@ -140,6 +143,7 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartViewHolder>
 
         if (mCartGames.size() == 0) {
             mCartTotal.setText("Cart is empty");
+            mBigCart.setVisibility(View.VISIBLE);
         } else {
             mCartTotal.setText("Cart total is: $" + getCartTotal().toString());
         }
@@ -164,6 +168,7 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartViewHolder>
         }
         editor.commit();
         mCartTotal.setText("Cart is empty");
+        mBigCart.setVisibility(View.VISIBLE);
         mCartGames.clear();
         notifyDataSetChanged();
     }

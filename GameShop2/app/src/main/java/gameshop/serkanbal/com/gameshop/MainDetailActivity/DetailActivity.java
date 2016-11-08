@@ -141,31 +141,41 @@ public class DetailActivity extends AppCompatActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (availableText.equals("Available")) {
-                    Snackbar.make(view, getString(R.string.add_chart_sucess), Snackbar.LENGTH_LONG)
-                            .setAction("Undo", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    SharedPreferences sharedPreferences = DetailActivity.this.
-                                            getSharedPreferences("key_detailId",
-                                                    Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    Integer detailId = gameDetailById.get(0).getIdDetail();
-                                    editor.putInt(detailId.toString(), -1);
-                                    editor.commit();
-                                }
-                            }).show();
-                    //Send item detail id to cart activity
-                    SharedPreferences sharedPreferences = DetailActivity.this.
-                            getSharedPreferences("key_detailId",
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    Integer detailId = gameDetailById.get(0).getIdDetail();
-                    editor.putInt(detailId.toString(), detailId);
-                    editor.commit();
+                SharedPreferences checkIfInChart = DetailActivity.this.
+                        getSharedPreferences("key_detailId",
+                                Context.MODE_PRIVATE);
+                Integer checkId = gameDetailById.get(0).getIdDetail();
+
+                if (checkIfInChart.getInt(checkId.toString(),-1) == -1) {
+                    if (availableText.equals("Available")) {
+                        Snackbar.make(view, getString(R.string.add_chart_sucess), Snackbar.LENGTH_LONG)
+                                .setAction("Undo", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        SharedPreferences sharedPreferences = DetailActivity.this.
+                                                getSharedPreferences("key_detailId",
+                                                        Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        Integer detailId = gameDetailById.get(0).getIdDetail();
+                                        editor.putInt(detailId.toString(), -1);
+                                        editor.commit();
+                                    }
+                                }).show();
+                        //Send item detail id to cart activity
+                        SharedPreferences sharedPreferences = DetailActivity.this.
+                                getSharedPreferences("key_detailId",
+                                        Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        Integer detailId = gameDetailById.get(0).getIdDetail();
+                        editor.putInt(detailId.toString(), detailId);
+                        editor.commit();
+                    } else {
+                        Snackbar.make(view, getString(R.string.add_chart_fail), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
                 } else {
-                    Snackbar.make(view, getString(R.string.add_chart_fail), Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    Snackbar.make(view, getString(R.string.add_chart_item_already_at_cart),
+                            Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
             }
         });
