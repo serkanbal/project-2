@@ -13,12 +13,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="gameshop.serkanbal.com.gameshop.Cart.CartActivity">
 
+    <TextView
+        android:text="CART_TOTAL_IS: "
+        android:background="@color/colorAccent"
+        android:id="@+id/textCartTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <android.support.v7.widget.RecyclerView
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginTop="10dp"
         android:id="@+id/cartrecyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_weight="1"
+        android:layout_height="0dp"/>
+
 
 
 

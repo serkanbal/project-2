@@ -81,7 +81,17 @@
             android:layout_toRightOf="@+id/detail_availableIcon"
             android:layout_toEndOf="@+id/detail_availableIcon"/>
 
-        <TextView
+        <ImageView
+            app:srcCompat="@drawable/ic_favorite_border_black_30dp"
+            android:tint="@color/colorAccent"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/detail_company"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/buttonAddToWishlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- <TextView
             android:textSize="12dp"
             android:padding="6dp"
             android:background="@drawable/customborder"
@@ -91,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/detail_company"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"/> -->
 
         <TextView
             android:layout_marginTop="14dp"

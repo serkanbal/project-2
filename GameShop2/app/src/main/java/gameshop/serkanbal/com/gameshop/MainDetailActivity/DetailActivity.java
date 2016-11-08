@@ -98,7 +98,7 @@ public class DetailActivity extends AppCompatActivity {
                     R.color.red));
             mFab.setImageResource(R.drawable.ic_block_black_24dp);
             mFab.setColorFilter(ContextCompat.getColor(DetailActivity.this,
-                    R.color.disabled_gray));
+                    R.color.black));
         }
 
         switch (gameDetailById.get(0).getIdDetail()) {

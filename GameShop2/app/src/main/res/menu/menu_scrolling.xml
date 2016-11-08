@@ -4,7 +4,7 @@
       tools:context="gameshop.serkanbal.com.gameshop.MainDetailActivity.DetailActivity">
 
     <item android:id="@+id/action_goWishlist"
-          android:icon="@drawable/ic_heart"
+          android:icon="@drawable/ic_heart_fortoolbar"
           android:title="@string/icon_heart"
           app:showAsAction="always" />
 

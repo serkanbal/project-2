@@ -7,4 +7,5 @@
     <color name="grass_green">#458B00</color>
     <color name="red">#FF0000</color>
     <color name="disabled_gray">#aeadad</color>
+    <color name="black">#000000</color>
 </resources>

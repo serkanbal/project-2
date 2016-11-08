@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,10 +22,13 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartViewHolder>
         implements ItemTouchHelperAdapter{
     List<Game> mCartGames;
     Context context;
+    TextView mCartTotal;
 
-    public CartRecyclerAdapter(List<Game> games) {
+    public CartRecyclerAdapter(List<Game> games, TextView cartTotal) {
         mCartGames = games;
+        mCartTotal = cartTotal;
     }
+
     @Override
     public CartViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -75,6 +79,19 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartViewHolder>
         editor.commit();
         mCartGames.remove(position);
         notifyItemRemoved(position);
-        //
+
+        if (mCartGames.size() == 0) {
+            mCartTotal.setText("Cart is empty");
+        } else {
+            mCartTotal.setText("Cart total is: " + getCartTotal().toString());
+        }
+    }
+
+    public Double getCartTotal() {
+        Double sum = 0d;
+        for (int i = 0; i < mCartGames.size(); i++) {
+            sum = mCartGames.get(i).getPrice() + sum;
+        }
+        return sum;
     }
 }

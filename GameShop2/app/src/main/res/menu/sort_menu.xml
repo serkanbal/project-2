@@ -3,13 +3,13 @@
 
     <item android:id="@+id/filter_price"
           android:icon="@android:drawable/ic_menu_share"
-          android:title="Filter By Price"/>
+          android:title="Sort By Price"/>
 
     <item android:id="@+id/filter_rating"
           android:icon="@android:drawable/ic_menu_share"
-          android:title="Filter By Rating"/>
+          android:title="Sort By Rating"/>
 
     <item android:id="@+id/filter_platform"
           android:icon="@android:drawable/ic_menu_share"
-          android:title="Filter By Platform"/>
+          android:title="Sort By Platform"/>
 </menu>

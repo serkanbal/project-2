@@ -5,8 +5,6 @@ package gameshop.serkanbal.com.gameshop.Cart;
  */
 
 public interface ItemTouchHelperAdapter {
-
     boolean onItemMove(int fromPosition, int toPosition);
-
     void onItemDismiss(int position);
 }
