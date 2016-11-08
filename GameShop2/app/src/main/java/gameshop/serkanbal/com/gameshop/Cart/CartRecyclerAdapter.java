@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 import gameshop.serkanbal.com.gameshop.Data.Game;
+import gameshop.serkanbal.com.gameshop.Data.Helper;
 import gameshop.serkanbal.com.gameshop.R;
 
 /**
@@ -152,4 +153,19 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartViewHolder>
         Double c = Math.round(sum * 100.0) / 100.0;
         return c;
     }
+
+    public void checkOut() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("key_detailId",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        List<Game> allPossible = Helper.getInstance(context).getAllGames();
+        for (Integer i = 1; i < allPossible.size()+1; i++) {
+            editor.putInt(i.toString(), -1);
+        }
+        editor.commit();
+        mCartTotal.setText("Cart is empty");
+        mCartGames.clear();
+        notifyDataSetChanged();
+    }
+
 }
