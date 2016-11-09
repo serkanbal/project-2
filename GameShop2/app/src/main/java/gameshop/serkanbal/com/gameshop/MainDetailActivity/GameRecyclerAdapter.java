@@ -1,6 +1,5 @@
 package gameshop.serkanbal.com.gameshop.MainDetailActivity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,9 +17,15 @@ import gameshop.serkanbal.com.gameshop.R;
 
 public class GameRecyclerAdapter extends RecyclerView.Adapter<GameViewHolder> {
     List<Game> mGames;
+    OnGameSelectedListener mOnGameSelectedListener;
 
-    public GameRecyclerAdapter(List<Game> games) {
+    public interface OnGameSelectedListener {
+        void onGameSelected(int gameId);
+    }
+
+    public GameRecyclerAdapter(List<Game> games, OnGameSelectedListener onGameSelectedListener) {
         mGames = games;
+        mOnGameSelectedListener = onGameSelectedListener;
     }
 
     @Override
@@ -31,7 +36,7 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<GameViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final GameViewHolder holder, int position) {
+    public void onBindViewHolder(final GameViewHolder holder, final int position) {
         String name = mGames.get(position).getName();
         String platform = mGames.get(position).getPlatform();
         String company = mGames.get(position).getCompany();
@@ -116,10 +121,11 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<GameViewHolder> {
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), DetailActivity.class);
-                intent.putExtra(DetailActivity.ITEM_ID_KEY,
-                        mGames.get(holder.getAdapterPosition()).getIdDetail());
-                view.getContext().startActivity(intent);
+                mOnGameSelectedListener.onGameSelected(mGames.get(position).getIdDetail());
+//                Intent intent = new Intent(view.getContext(), DetailActivity.class);
+//                intent.putExtra(DetailActivity.ITEM_ID_KEY,
+//                        mGames.get(holder.getAdapterPosition()).getIdDetail());
+//                view.getContext().startActivity(intent);
             }
         });
 

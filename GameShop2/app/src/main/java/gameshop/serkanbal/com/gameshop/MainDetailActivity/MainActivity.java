@@ -4,7 +4,10 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,18 +31,26 @@ import gameshop.serkanbal.com.gameshop.Data.Helper;
 import gameshop.serkanbal.com.gameshop.R;
 import gameshop.serkanbal.com.gameshop.Wishlist.WishlistActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements DetailFragment.OnFragmentInteractionListener, GameRecyclerAdapter.OnGameSelectedListener{
     RecyclerView mRecyclerView;
     GameRecyclerAdapter mGameRecyclerAdapter;
     ImageView mFilterButton;
     String mSearchQuery = "";
     TextView mResultSize;
     SearchView mSearcView;
+    boolean mTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (findViewById(R.id.detail_fragment_container) != null) {
+            mTwoPane = true;
+        } else {
+            mTwoPane = false;
+        }
 
         mFilterButton = (ImageView) findViewById(R.id.filterbutton);
         mResultSize = (TextView) findViewById(R.id.resultSize);
@@ -58,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        mGameRecyclerAdapter = new GameRecyclerAdapter(allGames);
+        mGameRecyclerAdapter = new GameRecyclerAdapter(allGames, this);
         mRecyclerView.setAdapter(mGameRecyclerAdapter);
 
         mResultSize.setText("Number of Items: " + resultSize(allGames));
@@ -214,4 +225,26 @@ public class MainActivity extends AppCompatActivity {
         return b;
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        //
+    }
+
+
+    @Override
+    public void onGameSelected(int gameId) {
+        if (mTwoPane) {
+            //Setup the detail fragment
+            DetailFragment detailFragment = DetailFragment.newInstance(gameId, mTwoPane);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.detail_fragment_container,detailFragment);
+            fragmentTransaction.commit();
+        } else {
+            Intent intent = new Intent(this, DetailActivity.class);
+            intent.putExtra(DetailActivity.ITEM_ID_KEY, gameId);
+            intent.putExtra(DetailActivity.IS_TWO_PANE, mTwoPane);
+            startActivity(intent);
+        }
+    }
 }
