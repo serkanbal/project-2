@@ -23,13 +23,11 @@ import gameshop.serkanbal.com.gameshop.Data.Game;
 import gameshop.serkanbal.com.gameshop.Data.Helper;
 import gameshop.serkanbal.com.gameshop.R;
 
-import static gameshop.serkanbal.com.gameshop.R.id.fab;
-
 public class DetailActivity extends AppCompatActivity {
     public static final String ITEM_ID_KEY = "detailId";
     TextView mDetailName, mDetailDescription, mDetailCompany, mDetailPlatform, mDetailPrice,
     mDetailAvailability;
-    ImageView mDetailRating, mDetailAvailabilityIcon, mScrollingHeader;
+    ImageView mDetailRating, mDetailAvailabilityIcon, mScrollingHeader, mAddToWishlist;
     FloatingActionButton mFab;
 
 
@@ -47,7 +45,8 @@ public class DetailActivity extends AppCompatActivity {
         mDetailAvailability = (TextView) findViewById(R.id.detail_availableText);
         mDetailAvailabilityIcon = (ImageView) findViewById(R.id.detail_availableIcon);
         mScrollingHeader = (ImageView) findViewById(R.id.header);
-        mFab = (FloatingActionButton) findViewById(fab);
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mAddToWishlist = (ImageView) findViewById(R.id.buttonAddToWishlist);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -151,7 +150,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 if (checkIfInChart.getInt(checkId.toString(),-1) == -1) {
                     if (availableText.equals("Available")) {
-                        Snackbar.make(view, getString(R.string.add_chart_sucess), Snackbar.LENGTH_LONG)
+                        Snackbar.make(view, getString(R.string.add_cart_sucess), Snackbar.LENGTH_LONG)
                                 .setAction("Undo", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -173,15 +172,88 @@ public class DetailActivity extends AppCompatActivity {
                         editor.putInt(detailId.toString(), detailId);
                         editor.commit();
                     } else {
-                        Snackbar.make(view, getString(R.string.add_chart_fail), Snackbar.LENGTH_LONG)
+                        Snackbar.make(view, getString(R.string.add_cart_fail), Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
                 } else {
-                    Snackbar.make(view, getString(R.string.add_chart_item_already_at_cart),
+                    Snackbar.make(view, getString(R.string.add_cart_item_already_at_cart),
                             Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
             }
         });
+
+        SharedPreferences checkIfInWishList = DetailActivity.this.
+                getSharedPreferences("wishList",
+                        Context.MODE_PRIVATE);
+        Integer checkWishList = gameDetailById.get(0).getIdDetail();
+
+        if (checkIfInWishList.getInt(checkWishList.toString(), -1) == -1){
+            mAddToWishlist.setImageResource(R.drawable.ic_favorite_border_black_30dp);
+        } else {
+            mAddToWishlist.setImageResource(R.drawable.ic_favorite_black_30dp);
+        }
+
+        mAddToWishlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences checkIfInWishList = DetailActivity.this.
+                        getSharedPreferences("wishList",
+                                Context.MODE_PRIVATE);
+                Integer checkWishList = gameDetailById.get(0).getIdDetail();
+
+                if (checkIfInWishList.getInt(checkWishList.toString(), -1) == -1) {
+                    Snackbar.make(view, getString(R.string.add_wishlist_success), Snackbar.LENGTH_LONG)
+                            .setAction("Undo", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    SharedPreferences sharedPreferences = DetailActivity.this.
+                                            getSharedPreferences("wishList",
+                                                    Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    Integer detailId = gameDetailById.get(0).getIdDetail();
+                                    editor.putInt(detailId.toString(), -1);
+                                    editor.commit();
+                                    mAddToWishlist.setImageResource(R.drawable.ic_favorite_border_black_30dp);
+                                }
+                            }).show();
+                    //Send item detail id to cart activity
+                    SharedPreferences sharedPreferences = DetailActivity.this.
+                            getSharedPreferences("wishList",
+                                    Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    Integer detailId = gameDetailById.get(0).getIdDetail();
+                    editor.putInt(detailId.toString(), detailId);
+                    editor.commit();
+                    mAddToWishlist.setImageResource(R.drawable.ic_favorite_black_30dp);
+                } else if (checkIfInWishList.getInt(checkWishList.toString(), -1) != -1){
+                    Snackbar.make(view, getString(R.string.remove_wishlist_success), Snackbar.LENGTH_LONG)
+                            .setAction("Undo", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    SharedPreferences sharedPreferences = DetailActivity.this.
+                                            getSharedPreferences("wishList",
+                                                    Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    Integer detailId = gameDetailById.get(0).getIdDetail();
+                                    editor.putInt(detailId.toString(), detailId);
+                                    editor.commit();
+                                    mAddToWishlist.setImageResource(R.drawable.ic_favorite_black_30dp);
+                                }
+                            }).show();
+                    //Send item detail id to cart activity
+                    SharedPreferences sharedPreferences = DetailActivity.this.
+                            getSharedPreferences("wishList",
+                                    Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    Integer detailId = gameDetailById.get(0).getIdDetail();
+                    editor.putInt(detailId.toString(), -1);
+                    editor.commit();
+                    mAddToWishlist.setImageResource(R.drawable.ic_favorite_border_black_30dp);
+                }
+
+            }
+        });
+
     }
 
     @Override

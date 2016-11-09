@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_marginBottom="10dp"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/wishlistCardView"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/customborder">
+
+            <ImageView
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:id="@+id/wishlistImage"
+                android:layout_centerVertical="true"
+                android:padding="4dp"
+                android:layout_width="74dp"
+                android:layout_height="96dp"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textSize="16dp"
+                android:layout_toRightOf="@id/wishlistImage"
+                android:textStyle="bold"
+                android:padding="4dp"
+                android:id="@+id/wishlistName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:padding="4dp"
+                android:layout_toRightOf="@id/wishlistImage"
+                android:layout_below="@id/wishlistName"
+                android:id="@+id/wishlistPlatform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="3dp"
+                android:textSize="17dp"
+                android:padding="4dp"
+                android:layout_below="@id/wishlistPlatform"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/wishlistPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

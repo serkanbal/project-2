@@ -95,7 +95,7 @@
             android:textSize="12dp"
             android:padding="6dp"
             android:background="@drawable/customborder"
-            android:text="+ to Wishlist"
+            android:text="+ to WishlistActivity"
             android:id="@+id/buttonAddToWishlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
