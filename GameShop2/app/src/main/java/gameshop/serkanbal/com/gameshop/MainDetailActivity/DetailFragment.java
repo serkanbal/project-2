@@ -43,7 +43,7 @@ public class DetailFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String TAG = "DetailFragment";
-
+    ImageView mAddToWishlist;
 
     // TODO: Rename and change types of parameters
     private int mSelectedGame;
@@ -72,8 +72,6 @@ public class DetailFragment extends Fragment {
             mSelectedGame = getArguments().getInt(ARG_PARAM1);
             mIsTwoPane = getArguments().getBoolean(ARG_PARAM2);
         }
-
-
     }
 
     @Override
@@ -109,7 +107,7 @@ public class DetailFragment extends Fragment {
         ImageView mDetailAvailabilityIcon = (ImageView) view.findViewById(R.id.detail_availableIcon);
         ImageView mScrollingHeader = (ImageView) view.findViewById(R.id.header);
         FloatingActionButton mFab = (FloatingActionButton) view.findViewById(R.id.fab);
-        final ImageView mAddToWishlist = (ImageView) view.findViewById(R.id.buttonAddToWishlist);
+        mAddToWishlist = (ImageView) view.findViewById(R.id.buttonAddToWishlist);
 
         mDetailName.setText(gameDetailById.get(0).getName());
         mDetailDescription.setText(gameDetailById.get(0).getDescription());
@@ -346,7 +344,23 @@ public class DetailFragment extends Fragment {
         return false;
     }
 
-//    @Override
+    @Override
+    public void onResume() {
+        super.onResume();
+        List<Game> gameDetailById = Helper.getInstance(getActivity()).
+                getGameById(mSelectedGame);
+        SharedPreferences checkIfInWishList = getActivity().
+                getSharedPreferences("wishList",
+                        Context.MODE_PRIVATE);
+        Integer checkWishList = gameDetailById.get(0).getIdDetail();
+        if (checkIfInWishList.getInt(checkWishList.toString(), -1) == -1){
+            mAddToWishlist.setImageResource(R.drawable.ic_favorite_border_black_30dp);
+        } else {
+            mAddToWishlist.setImageResource(R.drawable.ic_favorite_black_30dp);
+        }
+    }
+
+    //    @Override
 //    public void onResume() {
 //        super.onResume();
 ////                int theID = getIntent().getIntExtra(ITEM_ID_KEY, -1);

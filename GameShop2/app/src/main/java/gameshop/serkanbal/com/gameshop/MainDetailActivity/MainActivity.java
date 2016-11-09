@@ -230,7 +230,6 @@ public class MainActivity extends AppCompatActivity
         //
     }
 
-
     @Override
     public void onGameSelected(int gameId) {
         if (mTwoPane) {
@@ -238,7 +237,7 @@ public class MainActivity extends AppCompatActivity
             DetailFragment detailFragment = DetailFragment.newInstance(gameId, mTwoPane);
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.detail_fragment_container,detailFragment);
+            fragmentTransaction.replace(R.id.detail_fragment_container, detailFragment);
             fragmentTransaction.commit();
         } else {
             Intent intent = new Intent(this, DetailActivity.class);
