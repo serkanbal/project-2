@@ -36,11 +36,13 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
         }
 
         //Setup the detail fragment
-        DetailFragment detailFragment = DetailFragment.newInstance(theID, misTwoPane);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.detail_fragment_container,detailFragment);
-        fragmentTransaction.commit();
+        if (savedInstanceState == null) {
+            DetailFragment detailFragment = DetailFragment.newInstance(theID, misTwoPane);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.detail_fragment_container, detailFragment);
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
