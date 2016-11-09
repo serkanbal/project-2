@@ -9,4 +9,6 @@
     <color name="disabled_gray">#aeadad</color>
     <color name="black">#000000</color>
     <color name="cart_bg">#CFD8DC</color>
+    <color name="ps4_color">#003791</color>
+    <color name="xboxone_color">#5dc21e</color>
 </resources>

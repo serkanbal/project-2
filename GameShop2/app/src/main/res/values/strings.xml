@@ -9,5 +9,7 @@
     <string name="add_chart_fail">Item is currently not available.</string>
     <string name="add_chart_item_already_at_cart">Item is already in cart.</string>
     <string name="icon_cart">My Cart</string>
+    <string name="cart_is_empty">Your cart is empty!\nAdd a product to your cart before checking out.</string>
     <string name="icon_heart">My Heart</string>
+    <string name="title_activity_cart2">My Cart</string>
 </resources>

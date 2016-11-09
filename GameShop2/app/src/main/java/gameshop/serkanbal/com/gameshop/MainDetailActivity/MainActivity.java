@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import gameshop.serkanbal.com.gameshop.Cart.CartActivity;
+import gameshop.serkanbal.com.gameshop.Cart.CartActivity2;
 import gameshop.serkanbal.com.gameshop.Data.AssetHelper;
 import gameshop.serkanbal.com.gameshop.Data.Game;
 import gameshop.serkanbal.com.gameshop.Data.Helper;
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_goCart:
-                Intent intent = new Intent(MainActivity.this,CartActivity.class);
+                Intent intent = new Intent(MainActivity.this,CartActivity2.class);
                 startActivity(intent);
                 break;
         }

@@ -37,6 +37,11 @@
         </activity>
         <activity android:name=".Cart.CartActivity">
         </activity>
+        <activity
+            android:name=".Cart.CartActivity2"
+            android:label="@string/title_activity_cart2"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

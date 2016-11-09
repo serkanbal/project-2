@@ -5,16 +5,18 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ import gameshop.serkanbal.com.gameshop.Data.Game;
 import gameshop.serkanbal.com.gameshop.Data.Helper;
 import gameshop.serkanbal.com.gameshop.R;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity2 extends AppCompatActivity {
     List<Game> mList;
     RecyclerView mCartRecyclerView;
     CartRecyclerAdapter mCartRecyclerAdapter;
@@ -31,11 +33,15 @@ public class CartActivity extends AppCompatActivity {
     FloatingActionButton mFab;
     ImageView mBigCart;
 
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
+        setContentView(R.layout.activity_cart2);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mCartTotal = (TextView) findViewById(R.id.textCartTotal);
         mFab = (FloatingActionButton) findViewById(R.id.cartFab);
@@ -78,40 +84,49 @@ public class CartActivity extends AppCompatActivity {
 
         mCartRecyclerView.setAdapter(mCartRecyclerAdapter);
 
-            mFab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mList.size() > 0) {
-                        LayoutInflater layoutInflater = LayoutInflater.from(CartActivity.this);
-                        final View promptsView = layoutInflater.inflate(R.layout.dialoglist_layout, null);
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                                CartActivity.this);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mList.size() > 0) {
+                    LayoutInflater layoutInflater = LayoutInflater.from(CartActivity2.this);
+                    final View promptsView = layoutInflater.inflate(R.layout.dialoglist_layout, null);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            CartActivity2.this);
 
-                        // set prompts.xml to alertdialog builder
-                        alertDialogBuilder.setView(promptsView);
+                    // set prompts.xml to alertdialog builder
+                    alertDialogBuilder.setView(promptsView);
 
-                        // set dialog message
-                        alertDialogBuilder
-                                .setCancelable(false)
-                                .setPositiveButton("Thanks",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                mCartRecyclerAdapter.checkOut();
-                                            }
-                                        });
+                    // set dialog message
+                    alertDialogBuilder
+                            .setCancelable(false)
+                            .setPositiveButton("Thanks",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            mCartRecyclerAdapter.checkOut();
+                                        }
+                                    });
 
-                        // create alert dialog
-                        AlertDialog alertDialog = alertDialogBuilder.create();
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
 
-                        // show it
-                        alertDialog.show();
-                    } else {
-                        Toast.makeText(CartActivity.this, "Your cart is empty!\n" +
-                                "Add a product to your cart before checking out.", Toast.LENGTH_SHORT).show();
-                    }
+                    // show it
+                    alertDialog.show();
+                } else {
+                    Snackbar.make(view, getString(R.string.cart_is_empty), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
-            });
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) // Press Back Icon
+        {
+            finish();
         }
+        return super.onOptionsItemSelected(item);
+    }
 
     public Double getCartTotal() {
         Double sum = 0d;
@@ -121,4 +136,5 @@ public class CartActivity extends AppCompatActivity {
         Double c = Math.round(sum * 100.0) / 100.0;
         return c;
     }
+
 }
