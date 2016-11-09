@@ -14,4 +14,32 @@
     tools:context="gameshop.serkanbal.com.gameshop.Wishlist.WishlistActivity"
     tools:showIn="@layout/activity_wishlist">
 
+    <TextView
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:text="CART_TOTAL_IS: "
+        android:background="@drawable/customborder"
+        android:textSize="22sp"
+        android:id="@+id/textWishlistSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_marginTop="95dp"
+        android:id="@+id/wishListBigHeart"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/ic_add_shopping_cart_black_300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/textWishlistSize"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginTop="10dp"
+        android:id="@+id/wishlistrecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </RelativeLayout>

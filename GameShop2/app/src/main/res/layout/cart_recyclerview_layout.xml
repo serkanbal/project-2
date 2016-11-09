@@ -6,7 +6,7 @@
               android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/wishlistCardView"
+        android:id="@+id/cartCardView"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
                 android:layout_marginRight="4dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:id="@+id/wishlistImage"
+                android:id="@+id/cartImage"
                 android:layout_centerVertical="true"
                 android:padding="4dp"
                 android:layout_width="74dp"
@@ -32,18 +32,26 @@
             <TextView
                 android:layout_marginTop="10dp"
                 android:textSize="16dp"
-                android:layout_toRightOf="@id/wishlistImage"
+                android:layout_toRightOf="@id/cartImage"
                 android:textStyle="bold"
                 android:padding="4dp"
-                android:id="@+id/wishlistName"
+                android:id="@+id/cartName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
                 android:padding="4dp"
-                android:layout_toRightOf="@id/wishlistImage"
-                android:layout_below="@id/wishlistName"
-                android:id="@+id/wishlistPlatform"
+                android:layout_toRightOf="@id/cartImage"
+                android:layout_below="@id/cartName"
+                android:id="@+id/cartCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:padding="4dp"
+                android:layout_toRightOf="@id/cartImage"
+                android:layout_below="@id/cartCompany"
+                android:id="@+id/cartPlatform"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -51,10 +59,10 @@
                 android:layout_marginTop="3dp"
                 android:textSize="17dp"
                 android:padding="4dp"
-                android:layout_below="@id/wishlistPlatform"
+                android:layout_below="@id/cartCompany"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:id="@+id/wishlistPrice"
+                android:id="@+id/cartPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

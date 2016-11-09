@@ -26,6 +26,7 @@ import gameshop.serkanbal.com.gameshop.Data.AssetHelper;
 import gameshop.serkanbal.com.gameshop.Data.Game;
 import gameshop.serkanbal.com.gameshop.Data.Helper;
 import gameshop.serkanbal.com.gameshop.R;
+import gameshop.serkanbal.com.gameshop.Wishlist.WishlistActivity;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
@@ -96,8 +97,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_goCart:
-                Intent intent = new Intent(MainActivity.this,CartActivity2.class);
+                Intent intent = new Intent(MainActivity.this, CartActivity2.class);
                 startActivity(intent);
+                break;
+            case R.id.action_goWishlist:
+                Intent intent2 = new Intent(MainActivity.this, WishlistActivity.class);
+                startActivity(intent2);
                 break;
         }
         return super.onOptionsItemSelected(item);

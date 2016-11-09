@@ -22,6 +22,7 @@ import gameshop.serkanbal.com.gameshop.Cart.CartActivity2;
 import gameshop.serkanbal.com.gameshop.Data.Game;
 import gameshop.serkanbal.com.gameshop.Data.Helper;
 import gameshop.serkanbal.com.gameshop.R;
+import gameshop.serkanbal.com.gameshop.Wishlist.WishlistActivity;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String ITEM_ID_KEY = "detailId";
@@ -262,6 +263,10 @@ public class DetailActivity extends AppCompatActivity {
             case R.id.action_goCart:
                 Intent intent = new Intent(DetailActivity.this,CartActivity2.class);
                 startActivity(intent);
+                break;
+            case R.id.action_goWishlist:
+                Intent intent2 = new Intent(DetailActivity.this, WishlistActivity.class);
+                startActivity(intent2);
                 break;
         }
         return super.onOptionsItemSelected(item);

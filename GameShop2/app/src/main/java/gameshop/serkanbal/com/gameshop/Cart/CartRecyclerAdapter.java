@@ -2,7 +2,6 @@ package gameshop.serkanbal.com.gameshop.Cart;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,21 +46,12 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartViewHolder>
         String name = mCartGames.get(position).getName();
         String platform = mCartGames.get(position).getPlatform();
         Double price = mCartGames.get(position).getPrice();
+        String company = mCartGames.get(position).getCompany();
 
         holder.mCartName.setText(name);
         holder.mCartPlatform.setText(platform);
+        holder.mCartCompany.setText("by " + company);
         holder.mCartPrice.setText("$" + price.toString());
-
-        if (platform.equals("PS4")) {
-            holder.mCartPlatform.setBackgroundColor(Color.parseColor("#003791"));
-            holder.mCartPlatform.setTextColor(Color.WHITE);
-        } else if (platform.equals("Xbox One")) {
-            holder.mCartPlatform.setBackgroundColor(Color.parseColor("#5dc21e"));
-            holder.mCartPlatform.setTextColor(Color.WHITE);
-        } else {
-            holder.mCartPlatform.setBackgroundColor(Color.GRAY);
-            holder.mCartPlatform.setTextColor(Color.WHITE);
-        }
 
         switch (mCartGames.get(position).getIdDetail()) {
             case 1:

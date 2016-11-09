@@ -13,17 +13,18 @@ import gameshop.serkanbal.com.gameshop.R;
  */
 
 public class WishlistViewHolder extends RecyclerView.ViewHolder {
-    public TextView mWishlistName, mWishlisttPlatform, mWishlisttPrice;
-    public CardView mWishlistCardView;
-    public ImageView mWishlistImage;
+    public TextView mWishListName, mWishListPlatform, mWishListPrice, mWishListRating;
+    public CardView mWishListCardView;
+    public ImageView mWishListImage;
 
     public WishlistViewHolder(View itemView) {
         super(itemView);
-        mWishlistCardView = (CardView) itemView.findViewById(R.id.wishlistCardView);
-        mWishlistName = (TextView) itemView.findViewById(R.id.wishlistName);
-        mWishlisttPlatform = (TextView) itemView.findViewById(R.id.wishlistPlatform);
-        mWishlisttPrice = (TextView) itemView.findViewById(R.id.wishlistPrice);
-        mWishlistImage = (ImageView) itemView.findViewById(R.id.wishlistImage);
+        mWishListCardView = (CardView) itemView.findViewById(R.id.cartCardView);
+        mWishListName = (TextView) itemView.findViewById(R.id.cartName);
+        mWishListPlatform = (TextView) itemView.findViewById(R.id.cartPlatform);
+        mWishListPrice = (TextView) itemView.findViewById(R.id.cartPrice);
+        mWishListImage = (ImageView) itemView.findViewById(R.id.cartImage);
+        mWishListRating = (TextView) itemView.findViewById(R.id.wishlistRating);
     }
 
 }

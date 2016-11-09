@@ -379,10 +379,12 @@ public class Helper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             String name = cursor.getString(cursor.getColumnIndex(COL_NAME));
             String platform = cursor.getString(cursor.getColumnIndex(COL_PLATFORM));
+            String company = cursor.getString(cursor.getColumnIndex(COL_COMPANY));
             Double price = cursor.getDouble(cursor.getColumnIndex(COL_PRICE));
+            Double rating = cursor.getDouble(cursor.getColumnIndex(COL_RATING));
             int detail = cursor.getInt(cursor.getColumnIndex(COL_ID_DETAIL));
 
-            Game game = new Game(name,null,null,platform,null,0,price,detail);
+            Game game = new Game(name,null,company,platform,null,rating,price,detail);
             cursor.close();
             return game;
         } else {

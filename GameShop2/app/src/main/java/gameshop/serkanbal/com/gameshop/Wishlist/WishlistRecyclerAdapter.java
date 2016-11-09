@@ -1,11 +1,12 @@
 package gameshop.serkanbal.com.gameshop.Wishlist;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -18,10 +19,14 @@ import gameshop.serkanbal.com.gameshop.R;
 
 public class WishlistRecyclerAdapter extends RecyclerView.Adapter<WishlistViewHolder> {
     List<Game> mWishlistGames;
+    TextView mWishListSize;
+    ImageView mBigHeart;
     Context context;
 
-    public WishlistRecyclerAdapter(List<Game> wishlistGames) {
+    public WishlistRecyclerAdapter(List<Game> wishlistGames, TextView wishListSize, ImageView bigHeart) {
         mWishlistGames = wishlistGames;
+        mWishListSize = wishListSize;
+        mBigHeart = bigHeart;
     }
 
     @Override
@@ -37,70 +42,61 @@ public class WishlistRecyclerAdapter extends RecyclerView.Adapter<WishlistViewHo
         String name = mWishlistGames.get(position).getName();
         String platform = mWishlistGames.get(position).getPlatform();
         Double price = mWishlistGames.get(position).getPrice();
+        Double rating = mWishlistGames.get(position).getRating();
 
-        holder.mWishlistName.setText(name);
-        holder.mWishlisttPlatform.setText(platform);
-        holder.mWishlisttPrice.setText("$" + price.toString());
-
-        if (platform.equals("PS4")) {
-            holder.mWishlisttPlatform.setBackgroundColor(Color.parseColor("#003791"));
-            holder.mWishlisttPlatform.setTextColor(Color.WHITE);
-        } else if (platform.equals("Xbox One")) {
-            holder.mWishlisttPlatform.setBackgroundColor(Color.parseColor("#5dc21e"));
-            holder.mWishlisttPlatform.setTextColor(Color.WHITE);
-        } else {
-            holder.mWishlisttPlatform.setBackgroundColor(Color.GRAY);
-            holder.mWishlisttPlatform.setTextColor(Color.WHITE);
-        }
+        holder.mWishListName.setText(name);
+        holder.mWishListRating.setText("Rated " + rating.toString());
+        holder.mWishListPlatform.setText(platform);
+        holder.mWishListPrice.setText("$" + price.toString());
 
         switch (mWishlistGames.get(position).getIdDetail()) {
             case 1:
-                holder.mWishlistImage.setImageResource(R.drawable.destiny_ps4);
+                holder.mWishListImage.setImageResource(R.drawable.destiny_ps4);
                 break;
             case 2:
-                holder.mWishlistImage.setImageResource(R.drawable.destiny_xb);
+                holder.mWishListImage.setImageResource(R.drawable.destiny_xb);
                 break;
             case 3:
-                holder.mWishlistImage.setImageResource(R.drawable.lastofus_ps4);
+                holder.mWishListImage.setImageResource(R.drawable.lastofus_ps4);
                 break;
             case 4:
-                holder.mWishlistImage.setImageResource(R.drawable.witcher_ps4);
+                holder.mWishListImage.setImageResource(R.drawable.witcher_ps4);
                 break;
             case 5:
-                holder.mWishlistImage.setImageResource(R.drawable.witcher_xb);
+                holder.mWishListImage.setImageResource(R.drawable.witcher_xb);
                 break;
             case 6:
-                holder.mWishlistImage.setImageResource(R.drawable.witcher_pc);
+                holder.mWishListImage.setImageResource(R.drawable.witcher_pc);
                 break;
             case 7:
-                holder.mWishlistImage.setImageResource(R.drawable.doom_ps4);
+                holder.mWishListImage.setImageResource(R.drawable.doom_ps4);
                 break;
             case 8:
-                holder.mWishlistImage.setImageResource(R.drawable.doom_xb);
+                holder.mWishListImage.setImageResource(R.drawable.doom_xb);
                 break;
             case 9:
-                holder.mWishlistImage.setImageResource(R.drawable.doom_pc);
+                holder.mWishListImage.setImageResource(R.drawable.doom_pc);
                 break;
             case 10:
-                holder.mWishlistImage.setImageResource(R.drawable.uncharted4);
+                holder.mWishListImage.setImageResource(R.drawable.uncharted4);
                 break;
             case 11:
-                holder.mWishlistImage.setImageResource(R.drawable.forza_xb);
+                holder.mWishListImage.setImageResource(R.drawable.forza_xb);
                 break;
             case 12:
-                holder.mWishlistImage.setImageResource(R.drawable.forza_pc);
+                holder.mWishListImage.setImageResource(R.drawable.forza_pc);
                 break;
             case 13:
-                holder.mWishlistImage.setImageResource(R.drawable.gearsofwar4_xb);
+                holder.mWishListImage.setImageResource(R.drawable.gearsofwar4_xb);
                 break;
             case 14:
-                holder.mWishlistImage.setImageResource(R.drawable.skyrim_ps4);
+                holder.mWishListImage.setImageResource(R.drawable.skyrim_ps4);
                 break;
             case 15:
-                holder.mWishlistImage.setImageResource(R.drawable.skyrim_xb);
+                holder.mWishListImage.setImageResource(R.drawable.skyrim_xb);
                 break;
             case 16:
-                holder.mWishlistImage.setImageResource(R.drawable.skyrim_pc);
+                holder.mWishListImage.setImageResource(R.drawable.skyrim_pc);
                 break;
             default:
                 //

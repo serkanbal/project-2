@@ -13,16 +13,17 @@ import gameshop.serkanbal.com.gameshop.R;
  */
 
 public class CartViewHolder extends RecyclerView.ViewHolder {
-    public TextView mCartName, mCartPlatform, mCartPrice;
+    public TextView mCartName, mCartPlatform, mCartPrice, mCartCompany;
     public CardView mCartCardView;
     public ImageView mCartImage;
 
     public CartViewHolder(View itemView) {
         super(itemView);
-        mCartCardView = (CardView) itemView.findViewById(R.id.wishlistCardView);
-        mCartName = (TextView) itemView.findViewById(R.id.wishlistName);
-        mCartPlatform = (TextView) itemView.findViewById(R.id.wishlistPlatform);
-        mCartPrice = (TextView) itemView.findViewById(R.id.wishlistPrice);
-        mCartImage = (ImageView) itemView.findViewById(R.id.wishlistImage);
+        mCartCardView = (CardView) itemView.findViewById(R.id.cartCardView);
+        mCartName = (TextView) itemView.findViewById(R.id.cartName);
+        mCartPlatform = (TextView) itemView.findViewById(R.id.cartPlatform);
+        mCartPrice = (TextView) itemView.findViewById(R.id.cartPrice);
+        mCartImage = (ImageView) itemView.findViewById(R.id.cartImage);
+        mCartCompany = (TextView) itemView.findViewById(R.id.cartCompany);
     }
 }

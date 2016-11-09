@@ -12,7 +12,7 @@
     <string name="cart_is_empty">Your cart is empty!\nAdd a product to your cart before checking out.</string>
     <string name="icon_heart">My Heart</string>
     <string name="title_activity_cart2">My Cart</string>
-    <string name="title_activity_wishlist">Wishlist</string>
+    <string name="title_activity_wishlist">My Wishlist</string>
     <string name="add_wishlist_success">Item has been added to the wish list.</string>
     <string name="remove_wishlist_success">Item has been removed from the wish list.</string>
 </resources>

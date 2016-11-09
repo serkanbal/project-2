@@ -43,7 +43,7 @@ public class CartActivity2 extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mCartTotal = (TextView) findViewById(R.id.textCartTotal);
+        mCartTotal = (TextView) findViewById(R.id.textWishlistSize);
         mFab = (FloatingActionButton) findViewById(R.id.cartFab);
         mBigCart = (ImageView) findViewById(R.id.cartBigCart);
 
