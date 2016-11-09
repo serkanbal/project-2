@@ -106,8 +106,6 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartViewHolder>
                 //
                 break;
         }
-    
-    
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -55,7 +56,7 @@ public class WishlistActivity extends AppCompatActivity {
         }
 
         if (mWishList.size() == 0) {
-            mWishListSize.setText("Wish List is empty.");
+            mWishListSize.setText("Wish List is empty");
             mBigHeart.setVisibility(View.VISIBLE);
         } else {
             mWishListSize.setText("Number of items: " + mWishList.size());
@@ -67,10 +68,10 @@ public class WishlistActivity extends AppCompatActivity {
                 LinearLayoutManager.VERTICAL, false);
         mWishListRecyclerView.setLayoutManager(linearLayoutManager);
         mWishlistRecyclerAdapter = new WishlistRecyclerAdapter(mWishList, mWishListSize, mBigHeart);
-//        ItemTouchHelper.Callback callback =
-//                new CartItemTouchHelper(mCartRecyclerAdapter);
-//        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-//        touchHelper.attachToRecyclerView(mCartRecyclerView);
+        ItemTouchHelper.Callback callback =
+                new WishlistItemTouchHelper(mWishlistRecyclerAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(mWishListRecyclerView);
 
         mWishListRecyclerView.setAdapter(mWishlistRecyclerAdapter);
 
@@ -84,7 +85,4 @@ public class WishlistActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
 }

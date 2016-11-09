@@ -53,14 +53,14 @@ public class DetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final int id = getIntent().getIntExtra(ITEM_ID_KEY, -1);
+        final int theID = getIntent().getIntExtra(ITEM_ID_KEY, -1);
 
-        if (id == -1) {
+        if (theID == -1) {
             finish();
         }
 
         final List<Game> gameDetailById = Helper.getInstance(this).
-                getGameById(id);
+                getGameById(theID);
 
         if (gameDetailById == null) {
             finish();
@@ -251,10 +251,8 @@ public class DetailActivity extends AppCompatActivity {
                     editor.commit();
                     mAddToWishlist.setImageResource(R.drawable.ic_favorite_border_black_30dp);
                 }
-
             }
         });
-
     }
 
     @Override
@@ -277,5 +275,22 @@ public class DetailActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_scrolling, menu);
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        int theID = getIntent().getIntExtra(ITEM_ID_KEY, -1);
+        List<Game> gameDetailById = Helper.getInstance(this).
+                getGameById(theID);
+        SharedPreferences checkIfInWishList = DetailActivity.this.
+                getSharedPreferences("wishList",
+                        Context.MODE_PRIVATE);
+        Integer checkWishList = gameDetailById.get(0).getIdDetail();
+        if (checkIfInWishList.getInt(checkWishList.toString(), -1) == -1){
+            mAddToWishlist.setImageResource(R.drawable.ic_favorite_border_black_30dp);
+        } else {
+            mAddToWishlist.setImageResource(R.drawable.ic_favorite_black_30dp);
+        }
     }
 }

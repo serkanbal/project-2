@@ -1,6 +1,7 @@
 package gameshop.serkanbal.com.gameshop.Wishlist;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 
+import gameshop.serkanbal.com.gameshop.Cart.ItemTouchHelperAdapter;
 import gameshop.serkanbal.com.gameshop.Data.Game;
 import gameshop.serkanbal.com.gameshop.R;
 
@@ -17,7 +20,8 @@ import gameshop.serkanbal.com.gameshop.R;
  * Created by Serkan on 08/11/16.
  */
 
-public class WishlistRecyclerAdapter extends RecyclerView.Adapter<WishlistViewHolder> {
+public class WishlistRecyclerAdapter extends RecyclerView.Adapter<WishlistViewHolder>
+        implements ItemTouchHelperAdapter {
     List<Game> mWishlistGames;
     TextView mWishListSize;
     ImageView mBigHeart;
@@ -107,5 +111,40 @@ public class WishlistRecyclerAdapter extends RecyclerView.Adapter<WishlistViewHo
     @Override
     public int getItemCount() {
         return mWishlistGames.size();
+    }
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(mWishlistGames, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(mWishlistGames, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("wishList",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Integer a = mWishlistGames.get(position).getIdDetail();
+        String detailId = a.toString();
+        editor.putInt(detailId, -1);
+        editor.commit();
+        mWishlistGames.remove(position);
+        notifyItemRemoved(position);
+
+        if (mWishlistGames.size() == 0) {
+            mWishListSize.setText("Wish List is empty");
+            mBigHeart.setVisibility(View.VISIBLE);
+        } else {
+            mWishListSize.setText("Number of items: " + mWishlistGames.size());
+        }
     }
 }
