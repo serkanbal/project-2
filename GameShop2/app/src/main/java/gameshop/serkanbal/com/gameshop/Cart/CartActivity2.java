@@ -2,6 +2,7 @@ package gameshop.serkanbal.com.gameshop.Cart;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,6 +27,7 @@ import java.util.List;
 import gameshop.serkanbal.com.gameshop.Data.Game;
 import gameshop.serkanbal.com.gameshop.Data.Helper;
 import gameshop.serkanbal.com.gameshop.R;
+import gameshop.serkanbal.com.gameshop.Wishlist.WishlistActivity;
 
 public class CartActivity2 extends AppCompatActivity {
     List<Game> mList;
@@ -120,10 +124,20 @@ public class CartActivity2 extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_cart, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) // Press Back Icon
         {
             finish();
+        } else if (item.getItemId() == R.id.action_goWishlist) {
+            Intent intent = new Intent(this, WishlistActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
