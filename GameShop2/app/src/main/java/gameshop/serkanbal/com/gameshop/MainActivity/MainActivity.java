@@ -112,13 +112,14 @@ public class MainActivity extends AppCompatActivity
             case R.id.action_goCart:
                 Intent intent = new Intent(MainActivity.this, CartActivity2.class);
                 startActivity(intent);
-                break;
+                return true;
             case R.id.action_goWishlist:
                 Intent intent2 = new Intent(MainActivity.this, WishlistActivity.class);
                 startActivity(intent2);
-                break;
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

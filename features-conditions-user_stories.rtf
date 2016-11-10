@@ -1,0 +1,136 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww20420\viewh10120\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs36 \cf0 Feature 1: Searching for a game:\
+Conditions:\
+1. The magnifying glass for search feature is visible in the toolbar.\
+2. Upon clicking the magnifying glass, the toolbar becomes an edit text field and keyboard pops up.\
+3. The typed query text appears in the edit text field.\
+4. Upon clicking return on keyboard; the query is performed and relevant results are shown.\
+\
+User Story: \
+1. As a user, I can click on the magnifying glass.\
+2. As a user, I can see the edit text field and keyboard popping up.\
+3. As a user, I can type using the keyboard and my query text appears on the edit text field.\
+4. As a user, I can see the query results when I click return.\
+\
+\
+Feature 2: Sorting search results:\
+Conditions:\
+1. Sorting image button is visible on the upper right part of the screen.\
+2. Upon clicking on the a menu with 3 sorting options appears.\
+3. Menu items \'93Sort by Price\'94, \'93Sort by Rating\'94 and \'93Sort by Platform\'94 are visible on the screen.\
+4. Upon clicking one of them; the list updates accordingly.\
+\
+User Story:\
+1. As a user, I can see the sorting button on the upper right part of the screen.\
+2. As a user, I can click on the sorting button.\
+3. As a user, I can see a menu with 3 sorting options appear (\'93Sort by Price\'94, \'93Sort by Rating\'94 and \'93Sort by Platform\'94) when I click the sorting button.\
+3. As a user, I can click any of the options and see the list of items update accordingly.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 Feature 3: Accessing Wishlist & Cart\
+Conditions: \
+1. The heart and cart icon are visible on the upper right part of the toolbar.\
+2. Upon clicking on the heart icon; the user is directed to the wish list screen.\
+3. Upon clicking on the cart icon; the user is directed to the cart screen.\
+\
+User Story:\
+1. As a user, I can see the cart & heart icon.\
+2. As a user, I can click on the heart icon to go to the wish list screen.\
+3. As a user, I can click on the cart icon to go to the cart screen.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
+\
+Feature 4: Accessing the Detail Page & Navigating in the Detail Page:\
+Conditions: \
+1. All items or a list of a specific search result is visible on the screen.\
+2. An items cover image, product name, platform name, company name, rating, availability and price info can be seen on the screen.\
+3. Upon clicking the listed items:\
+	a) If the user is on a smart phone: the user is directed to the detail screen of the specific item.\
+	b) If the user is on a tablet: the user sees the detail of the item on the same screen.\
+4. Name and image of the item are visible on the toolbar company name, platform name, rating info, availability info, price info, detail info, a heart image button and a floating action button is visible on the screen.\
+5. If the item is in the wish list; the heart image button is a full heart; if the item is not in the wishlist; the heart image is a outline of a heart.\
+6. (Only for smartphones) Upon scrolling the page, the scrolling toolbar collapses and floating action & game image disappears.\
+\
+User Story:\
+1. As a user I can see list of items.\
+2. As a user, I can see cover image, product name, platform name, company name, rating, availability and price info of all items in the list.\
+3. As a user, when I click an item on the screen: \
+	a) If I am using a smart phone; I can go to the detail page of the item.\
+	b) If I am using a tablet; I can see the detail page of the item on the same page.\
+4. As a user, I can see name and image of the item on the toolbar; company name, platform name, rating info, availability info, price info, detail info, a heart image button and a floating action button.\
+5. (Only on smartphones) As a user, I can see the game image and floating action button disappear when I scroll.\
+\
+\
+Feature 5: Adding an item to Cart and Wish List:\
+Condition:\
+1.  On the detail page; when the \'93add to cart\'94 FAB is clicked:\
+	a) If the item is available: \
+		i) If the item is not already in cart: Item is added to the cart and user gets a success message.\
+		ii) If the item is in cart: Item is not added to the cart and the user gets a failure message.\
+	b) If the item is not available: Item is not added to the cart and the user gets a failure message.\
+\
+2: On the detail page; when the \'93add to wish list\'94 heart is clicked:\
+	a) If the item is not in the wish list:\
+		i) The item is added to the wish list, the icon becomes a full-heart image and a success message is shown.\
+	b) If the item is already in the wish list: the icon becomes an outline-heart image and a success message is shown.\
+\
+User Story:\
+1. As a user, when I click the FAB on the detail page:\
+	a) If the item is available and not in the cart; I get see a success message.\
+	b) If the item is available and already in the cart; I get a failure message.\
+	c) If the item is not available; I get a failure message.\
+\
+\
+Feature 6: Removing an item from the Cart & Wish List:\
+Condition: \
+1. If there are no items in the cart or wish list:\
+	a) The text field shows that cart / wish list is empty.\
+	b) No items can be removed.\
+2. If there are items present in the cart or wish list:\
+	a) Wish list shows number of items in the wish list and cart shows the total amount of the list in dollars. \
+	b) Either by swiping an item to the right or left; the item can be removed from the cart or wish list.\
+	c) The text showing the item numbers in the wish list and total amount in cart updates.\
+\
+User Story:\
+1. As a user, I can see \'93Cart / Wish List is empty\'94 text on the respective page.\
+2. As a user, I can not remove an item if I did not put an item in the cart or wish list.\
+3. As a user, if there are items on the cart or wish list:\
+	a) I can see the number of items in the wish list\
+	b) I can see the total amount of the list in dollars.\
+	c) I can swipe either left or right to remove an item from the list.\
+	d) I can see the text showing the item numbers in the wish list and total amount in cart updates.\
+\
+\
+Feature 7: Checking Out\
+Condition:\
+1. On the cart page; a FAB with a wallet icon is visible.\
+2. Upon clicking the FAB:\
+	a) If there are items in the cart:\
+		i) A success dialog box appears.\
+		ii) List are removed from the cart.\
+	b) If there are no items in the cart:\
+		i) A failure message is shown.\
+\
+User story:\
+1. As a user, I can see a FAB with a wallet icon.\
+2. As a user, when I click FAB:\
+	a) If there are items in the cart:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 		i) I see a dialog box appearing.\
+		ii) I see the items in the cart are moved.\
+	b) If there are no items in the cart:\
+		i) I see a failure message.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 	\
+\
+\
+\
+\
+\
+}

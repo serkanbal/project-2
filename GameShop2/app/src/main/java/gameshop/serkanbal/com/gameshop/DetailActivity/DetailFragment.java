@@ -109,7 +109,7 @@ public class DetailFragment extends Fragment {
         TextView mDetailAvailability = (TextView) view.findViewById(R.id.detail_availableText);
         ImageView mDetailAvailabilityIcon = (ImageView) view.findViewById(R.id.detail_availableIcon);
         ImageView mScrollingHeader = (ImageView) view.findViewById(R.id.header);
-        FloatingActionButton mFab = (FloatingActionButton) view.findViewById(R.id.fab);
+        FloatingActionButton mFab = (FloatingActionButton) view.findViewById(R.id.fabDetail);
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout)
                 view.findViewById(R.id.toolbar_layout);
         mAddToWishlist = (ImageView) view.findViewById(R.id.buttonAddToWishlist);
@@ -340,7 +340,7 @@ public class DetailFragment extends Fragment {
             inflater.inflate(R.menu.menu_scrolling, menu);
         }
     }
-
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
