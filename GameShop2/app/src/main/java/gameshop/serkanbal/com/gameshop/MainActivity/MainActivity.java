@@ -1,4 +1,4 @@
-package gameshop.serkanbal.com.gameshop.MainDetailActivity;
+package gameshop.serkanbal.com.gameshop.MainActivity;
 
 import android.app.SearchManager;
 import android.content.ComponentName;
@@ -28,6 +28,8 @@ import gameshop.serkanbal.com.gameshop.Cart.CartActivity2;
 import gameshop.serkanbal.com.gameshop.Data.AssetHelper;
 import gameshop.serkanbal.com.gameshop.Data.Game;
 import gameshop.serkanbal.com.gameshop.Data.Helper;
+import gameshop.serkanbal.com.gameshop.DetailActivity.DetailActivity;
+import gameshop.serkanbal.com.gameshop.DetailActivity.DetailFragment;
 import gameshop.serkanbal.com.gameshop.R;
 import gameshop.serkanbal.com.gameshop.Wishlist.WishlistActivity;
 

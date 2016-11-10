@@ -1,4 +1,4 @@
-package gameshop.serkanbal.com.gameshop.MainDetailActivity;
+package gameshop.serkanbal.com.gameshop.DetailActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -87,15 +89,16 @@ public class DetailFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //Get selected item from db
+        final List<Game> gameDetailById = Helper.getInstance(getContext()).
+                getGameById(mSelectedGame);
+
+
         if (!mIsTwoPane) {
             Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
             ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        //Get selected item from db
-        final List<Game> gameDetailById = Helper.getInstance(getContext()).
-                getGameById(mSelectedGame);
 
         TextView mDetailName = (TextView) view.findViewById(R.id.detail_name);
         TextView mDetailDescription = (TextView) view.findViewById(R.id.detail_description);
@@ -107,7 +110,16 @@ public class DetailFragment extends Fragment {
         ImageView mDetailAvailabilityIcon = (ImageView) view.findViewById(R.id.detail_availableIcon);
         ImageView mScrollingHeader = (ImageView) view.findViewById(R.id.header);
         FloatingActionButton mFab = (FloatingActionButton) view.findViewById(R.id.fab);
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout)
+                view.findViewById(R.id.toolbar_layout);
         mAddToWishlist = (ImageView) view.findViewById(R.id.buttonAddToWishlist);
+
+        if (mIsTwoPane) {
+            AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) collapsingToolbarLayout.getLayoutParams();
+            params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP); // list other flags here by |
+            collapsingToolbarLayout.setLayoutParams(params);
+            mDetailName.setVisibility(View.VISIBLE);
+        }
 
         mDetailName.setText(gameDetailById.get(0).getName());
         mDetailDescription.setText(gameDetailById.get(0).getDescription());
@@ -132,7 +144,7 @@ public class DetailFragment extends Fragment {
         }
 
         final String availableText = gameDetailById.get(0).getAvailability();
-        if (availableText.equals("Available")) {
+        if (availableText.equals(getString(R.string.available_text))) {
             mDetailAvailability.setTextColor(getResources().getColor(R.color.grass_green));
             mDetailAvailabilityIcon.setImageResource(R.drawable.ic_check_circle_black_24dp);
             mDetailAvailabilityIcon.setColorFilter(ContextCompat.getColor(getContext(),
@@ -359,21 +371,4 @@ public class DetailFragment extends Fragment {
             mAddToWishlist.setImageResource(R.drawable.ic_favorite_black_30dp);
         }
     }
-
-    //    @Override
-//    public void onResume() {
-//        super.onResume();
-////                int theID = getIntent().getIntExtra(ITEM_ID_KEY, -1);
-////        List<Game> gameDetailById = Helper.getInstance(this).
-////                getGameById(theID);
-////        SharedPreferences checkIfInWishList = DetailActivity.this.
-////                getSharedPreferences("wishList",
-////                        Context.MODE_PRIVATE);
-////        Integer checkWishList = gameDetailById.get(0).getIdDetail();
-////        if (checkIfInWishList.getInt(checkWishList.toString(), -1) == -1){
-////            mAddToWishlist.setImageResource(R.drawable.ic_favorite_border_black_30dp);
-////        } else {
-////            mAddToWishlist.setImageResource(R.drawable.ic_favorite_black_30dp);
-////        }
-//    }
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="gameshop.serkanbal.com.gameshop.MainDetailActivity.DetailActivity"
+    tools:context="gameshop.serkanbal.com.gameshop.DetailActivity.DetailActivity"
     tools:showIn="@layout/activity_detail">
 
     <RelativeLayout
@@ -16,6 +16,7 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:visibility="gone"
             android:layout_marginTop="8dp"
             android:textStyle="bold"
             android:textSize="25sp"

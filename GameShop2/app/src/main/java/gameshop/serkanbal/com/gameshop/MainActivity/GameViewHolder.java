@@ -1,4 +1,4 @@
-package gameshop.serkanbal.com.gameshop.MainDetailActivity;
+package gameshop.serkanbal.com.gameshop.MainActivity;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;

@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="gameshop.serkanbal.com.gameshop.MainDetailActivity.MainActivity"
+    tools:context="gameshop.serkanbal.com.gameshop.MainActivity.MainActivity"
     tools:showIn="@layout/activity_main">
 
     <TextView

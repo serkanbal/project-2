@@ -42,7 +42,7 @@ public class WishlistRecyclerAdapter extends RecyclerView.Adapter<WishlistViewHo
     }
 
     @Override
-    public void onBindViewHolder(WishlistViewHolder holder, int position) {
+    public void onBindViewHolder(WishlistViewHolder holder, final int position) {
         String name = mWishlistGames.get(position).getName();
         String platform = mWishlistGames.get(position).getPlatform();
         Double price = mWishlistGames.get(position).getPrice();
@@ -106,7 +106,9 @@ public class WishlistRecyclerAdapter extends RecyclerView.Adapter<WishlistViewHo
                 //
                 break;
         }
+
     }
+
 
     @Override
     public int getItemCount() {

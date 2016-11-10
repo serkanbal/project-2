@@ -21,9 +21,13 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/Toolbar.TitleText"
+            app:collapsedTitleTextAppearance="@style/Collapsed.Toolbar.TitleText"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
+                android:alpha="0.7"
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
