@@ -1,4 +1,4 @@
-### Project #2: Gameshop
+#Project #2: Gameshop
 
 ## Overview
 
@@ -12,21 +12,21 @@ On the wish list screen; the user can see the games which he labelled as favorit
 
 On the cart screen; the user can see the games which he added to the cart and may remove any of them by swiping them either right or left. He can also check out to buy the products by clicking a FAB.
 
-## Screenshots:
+### Screenshots:
 
 <p align="center">
-  <img src="screenshots/Screenshot_20161110-140739.png" height="300px" /> <img src="screenshots/Screenshot_20161110-140750" height="300px" />
+  <img src="screenshots/Screenshot_20161110-140739.png" height="300px" /> <img src="screenshots/Screenshot_20161110-140750.png” height="300px" />
 </p>
 <p align="center">
-  <img src="screenshots/Screenshot_20161110-140820.png" height="300px" /> <img src="screenshots/Screenshot_20161110-140847" height="300px" />
+  <img src="screenshots/Screenshot_20161110-140820.png" height="300px" /> <img src="screenshots/Screenshot_20161110-140847.png” height="300px" />
 </p>
 
 <p align="center">
-  <img src="screenshots/Screenshot_1478805196" height="300px" /></p>
+  <img src="screenshots/Screenshot_1478805196çpng” height="300px" /></p>
 
-# Paper Prototyping images can be found on in the folder “paper_prototypes”
+### Paper Prototyping images can be found on in the folder “paper_prototypes”
 
-# Known issues:
+### Known issues:
  - The espresso test fails on some cases.
 
 ---
