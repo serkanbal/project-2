@@ -22,7 +22,7 @@ On the cart screen; the user can see the games which he added to the cart and ma
 </p>
 
 <p align="center">
-  <img src="screenshots/Screenshot_1478805196çpng” height="300px" /></p>
+  <img src="screenshots/Screenshot_1478805196.png” height="300px" /></p>
 
 ### Paper Prototyping images can be found on in the folder “paper_prototypes”
 
