@@ -14,11 +14,11 @@ On the cart screen; the user can see the games which he added to the cart and ma
 
 ### Screenshots:
 
-<img src="screenshots/Screenshot_20161110-140739.png" height="300px"/>
+<p align="center"><img src="screenshots/Screenshot_20161110-140739.png" height="300px"/>
 <img src="screenshots/Screenshot_20161110-140750.png" height="300px"/>
 <img src="screenshots/Screenshot_20161110-140820.png" height="300px"/>
-<img src="screenshots/Screenshot_20161110-140847.png" height="300px"/>
-<img src="screenshots/Screenshot_1478805196.png" height="300px"/>
+<img src="screenshots/Screenshot_20161110-140847.png" height="300px"/></p>
+<p align="center"><img src="screenshots/Screenshot_1478805196.png" height="300px"/></p>
 
 
 
