@@ -315,6 +315,7 @@ public class MainActivity extends AppCompatActivity
                     super.onPostExecute(games);
                     mGameRecyclerAdapter.replaceData(games);
                     mResultSize.setText("Number of Items: " + resultSize(games));
+                    //
                 }
             };
             taskSearch.execute(query);
