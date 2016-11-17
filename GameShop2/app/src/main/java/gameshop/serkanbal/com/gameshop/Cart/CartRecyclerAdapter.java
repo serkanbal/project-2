@@ -2,6 +2,7 @@ package gameshop.serkanbal.com.gameshop.Cart;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -158,18 +159,30 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartViewHolder>
     }
 
     public void checkOut() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("key_detailId",
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        List<Game> allPossible = Helper.getInstance(context).getAllGames();
-        for (Integer i = 1; i < allPossible.size()+1; i++) {
-            editor.putInt(i.toString(), -1);
-        }
-        editor.commit();
-        mCartTotal.setText("Cart is empty");
-        mBigCart.setVisibility(View.VISIBLE);
-        mCartGames.clear();
-        notifyDataSetChanged();
+        AsyncTask<Void, Void, List<Game>> taskGetAllPossible = new AsyncTask<Void, Void, List<Game>>() {
+            @Override
+            protected List<Game> doInBackground(Void... voids) {
+                List<Game> allPossible = Helper.getInstance(context).getAllGames();
+                return allPossible;
+            }
+
+            @Override
+            protected void onPostExecute(List<Game> games) {
+                super.onPostExecute(games);
+                SharedPreferences sharedPreferences = context.getSharedPreferences("key_detailId",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                for (Integer i = 1; i < games.size()+1; i++) {
+                    editor.putInt(i.toString(), -1);
+                }
+                editor.commit();
+                mCartTotal.setText("Cart is empty");
+                mBigCart.setVisibility(View.VISIBLE);
+                mCartGames.clear();
+                notifyDataSetChanged();
+            }
+        };
+        taskGetAllPossible.execute();
     }
 
 }

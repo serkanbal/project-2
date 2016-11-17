@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -51,76 +52,101 @@ public class CartActivity2 extends AppCompatActivity {
         mFab = (FloatingActionButton) findViewById(R.id.cartFab);
         mBigCart = (ImageView) findViewById(R.id.cartBigCart);
 
-        SharedPreferences sharedPreferences = this.getSharedPreferences("key_detailId",
-                Context.MODE_PRIVATE);
-        List<Integer> cartItems = new ArrayList<>();
-        List<Game> allPossible = Helper.getInstance(this).getAllGames();
-        //Change hardcoded 17 to read from the size of the list!
-        for (Integer i = 1; i < allPossible.size() + 1; i++) {
-            if (sharedPreferences.getInt(i.toString(), -1) != -1) {
-                cartItems.add((sharedPreferences.getInt(i.toString(), -1)));
-            }
-        }
-
-        mList = new ArrayList<>();
-        for (int i = 0; i < cartItems.size(); i++) {
-            Game game = Helper.getInstance(this).getCartGameById(cartItems.get(i));
-            mList.add(game);
-        }
-
-        if (mList.size() == 0) {
-            mCartTotal.setText("Cart is empty");
-            mBigCart.setVisibility(View.VISIBLE);
-        } else {
-            mCartTotal.setText("Cart total is: $" + getCartTotal().toString());
-        }
-
-        //Setup the CartRecyclerView
-        mCartRecyclerView = (RecyclerView) findViewById(R.id.cartrecyclerview);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,
-                LinearLayoutManager.VERTICAL, false);
-        mCartRecyclerView.setLayoutManager(linearLayoutManager);
-        mCartRecyclerAdapter = new CartRecyclerAdapter(mList, mCartTotal, mBigCart);
-        ItemTouchHelper.Callback callback =
-                new CartItemTouchHelper(mCartRecyclerAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(mCartRecyclerView);
-
-        mCartRecyclerView.setAdapter(mCartRecyclerAdapter);
-
-        mFab.setOnClickListener(new View.OnClickListener() {
+        AsyncTask<Void, Void, List<Game>> taskGetAllPossible = new AsyncTask<Void, Void, List<Game>>() {
             @Override
-            public void onClick(View view) {
-                if (mList.size() > 0) {
-                    LayoutInflater layoutInflater = LayoutInflater.from(CartActivity2.this);
-                    final View promptsView = layoutInflater.inflate(R.layout.dialoglist_layout, null);
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                            CartActivity2.this);
-
-                    // set prompts.xml to alertdialog builder
-                    alertDialogBuilder.setView(promptsView);
-
-                    // set dialog message
-                    alertDialogBuilder
-                            .setCancelable(false)
-                            .setPositiveButton("Thanks",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            mCartRecyclerAdapter.checkOut();
-                                        }
-                                    });
-
-                    // create alert dialog
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-
-                    // show it
-                    alertDialog.show();
-                } else {
-                    Snackbar.make(view, getString(R.string.cart_is_empty), Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
+            protected List<Game> doInBackground(Void... voids) {
+                List<Game> allPossible = Helper.getInstance(CartActivity2.this).getAllGames();
+                return allPossible;
             }
-        });
+
+            @Override
+            protected void onPostExecute(List<Game> games) {
+                super.onPostExecute(games);
+                SharedPreferences sharedPreferences = CartActivity2.this.getSharedPreferences("key_detailId",
+                        Context.MODE_PRIVATE);
+                final List<Integer> cartItems = new ArrayList<>();
+                //Change hardcoded 17 to read from the size of the list!
+                for (Integer i = 1; i < games.size() + 1; i++) {
+                    if (sharedPreferences.getInt(i.toString(), -1) != -1) {
+                        cartItems.add((sharedPreferences.getInt(i.toString(), -1)));
+                    }
+                }
+
+                AsyncTask<Void, Void, List<Game>> taskFillCartList = new AsyncTask<Void, Void, List<Game>>() {
+                    @Override
+                    protected List<Game> doInBackground(Void... voids) {
+                        List<Game> list = new ArrayList<>();
+                        for (int i = 0; i < cartItems.size(); i++) {
+                            Game game = Helper.getInstance(CartActivity2.this).getCartGameById(cartItems.get(i));
+                            list.add(game);
+                        }
+                    return list;
+                    }
+
+                    @Override
+                    protected void onPostExecute(List<Game> games) {
+                        super.onPostExecute(games);
+                        mList = games;
+
+                        if (mList.size() == 0) {
+                            mCartTotal.setText("Cart is empty");
+                            mBigCart.setVisibility(View.VISIBLE);
+                        } else {
+                            mCartTotal.setText("Cart total is: $" + getCartTotal().toString());
+                        }
+
+                        //Setup the CartRecyclerView
+                        mCartRecyclerView = (RecyclerView) findViewById(R.id.cartrecyclerview);
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CartActivity2.this,
+                                LinearLayoutManager.VERTICAL, false);
+                        mCartRecyclerView.setLayoutManager(linearLayoutManager);
+                        mCartRecyclerAdapter = new CartRecyclerAdapter(mList, mCartTotal, mBigCart);
+                        ItemTouchHelper.Callback callback =
+                                new CartItemTouchHelper(mCartRecyclerAdapter);
+                        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+                        touchHelper.attachToRecyclerView(mCartRecyclerView);
+
+                        mCartRecyclerView.setAdapter(mCartRecyclerAdapter);
+
+                        mFab.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (mList.size() > 0) {
+                                    LayoutInflater layoutInflater = LayoutInflater.from(CartActivity2.this);
+                                    final View promptsView = layoutInflater.inflate(R.layout.dialoglist_layout, null);
+                                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                                            CartActivity2.this);
+
+                                    // set prompts.xml to alertdialog builder
+                                    alertDialogBuilder.setView(promptsView);
+
+                                    // set dialog message
+                                    alertDialogBuilder
+                                            .setCancelable(false)
+                                            .setPositiveButton("Thanks",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            mCartRecyclerAdapter.checkOut();
+                                                        }
+                                                    });
+
+                                    // create alert dialog
+                                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                                    // show it
+                                    alertDialog.show();
+                                } else {
+                                    Snackbar.make(view, getString(R.string.cart_is_empty), Snackbar.LENGTH_LONG)
+                                            .setAction("Action", null).show();
+                                }
+                            }
+                        });
+                    }
+                };
+                taskFillCartList.execute();
+            }
+        };
+        taskGetAllPossible.execute();
     }
 
     @Override

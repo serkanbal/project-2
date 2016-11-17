@@ -1,6 +1,7 @@
 package gameshop.serkanbal.com.gameshop.DetailActivity;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -28,8 +29,20 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
         final int theID = getIntent().getIntExtra(ITEM_ID_KEY, -1);
         misTwoPane = getIntent().getBooleanExtra(IS_TWO_PANE, false);
 
-        Game game = Helper.getInstance(this).getCartGameById(theID);
-        setTitle(game.getName());
+        AsyncTask<Integer, Void, Game> taskGetCartGameById = new AsyncTask<Integer, Void, Game>() {
+            @Override
+            protected Game doInBackground(Integer... integers) {
+                Game game = Helper.getInstance(DetailActivity.this).getCartGameById(integers[0]);
+                return game;
+            }
+
+            @Override
+            protected void onPostExecute(Game game) {
+                super.onPostExecute(game);
+                setTitle(game.getName());
+            }
+        };
+        taskGetCartGameById.execute(theID);
 
         if (theID == -1) {
             finish();

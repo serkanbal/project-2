@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -61,7 +62,23 @@ public class MainActivity extends AppCompatActivity
         AssetHelper dbSetup = new AssetHelper(MainActivity.this);
         dbSetup.getReadableDatabase();
 
-        List<Game> allGames = Helper.getInstance(this).getAllGames();
+        //Async
+        AsyncTask<Void, Void, List<Game>> task = new AsyncTask<Void, Void, List<Game>>() {
+            @Override
+            protected List<Game> doInBackground(Void... voids) {
+                List<Game> allGames = Helper.getInstance(MainActivity.this).getAllGames();
+                return allGames;
+            }
+
+            @Override
+            protected void onPostExecute(List<Game> games) {
+                super.onPostExecute(games);
+                mGameRecyclerAdapter = new GameRecyclerAdapter(games, MainActivity.this);
+                mRecyclerView.setAdapter(mGameRecyclerAdapter);
+                mResultSize.setText("Number of Items: " + resultSize(games));
+            }
+        };
+        task.execute();
 
         //Setup the RecyclerView
         mRecyclerView  = (RecyclerView) findViewById(R.id.recyclerview);
@@ -71,22 +88,8 @@ public class MainActivity extends AppCompatActivity
 
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        mGameRecyclerAdapter = new GameRecyclerAdapter(allGames, this);
-        mRecyclerView.setAdapter(mGameRecyclerAdapter);
-
-        mResultSize.setText("Number of Items: " + resultSize(allGames));
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         //Floating Context Menu
         registerForContextMenu(mFilterButton);
@@ -127,39 +130,111 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.filter_price:
                 if (!mSearchQuery.equals("")) {
-                    List<Game> filteredByPrice = Helper.getInstance(this).
-                            itemSearchForNameOrTypeFilterByPrice(mSearchQuery);
-                    mGameRecyclerAdapter.replaceData(filteredByPrice);
-                    mResultSize.setText("Number of Items: " + resultSize(filteredByPrice));
+                    AsyncTask<String, Void, List<Game>> taskitemSearchForNameOrTypeFilterByPrice = new AsyncTask<String, Void, List<Game>>() {
+                        @Override
+                        protected List<Game> doInBackground(String... strings) {
+                            List<Game> filteredByPrice = Helper.getInstance(MainActivity.this).
+                                    itemSearchForNameOrTypeFilterByPrice(strings[0]);
+                            return filteredByPrice;
+                        }
+
+                        @Override
+                        protected void onPostExecute(List<Game> games) {
+                            super.onPostExecute(games);
+                            mGameRecyclerAdapter.replaceData(games);
+                            mResultSize.setText("Number of Items: " + resultSize(games));
+                        }
+                    };
+                taskitemSearchForNameOrTypeFilterByPrice.execute(mSearchQuery);
+
                 } else {
-                    List<Game> allFilteredByPrice = Helper.getInstance(this).getAllGamesFilteredByPrice();
-                    mGameRecyclerAdapter.replaceData(allFilteredByPrice);
-                    mResultSize.setText("Number of Items: " + resultSize(allFilteredByPrice));
+                    AsyncTask<Void, Void, List<Game>> taskAllFilteredByPrice = new AsyncTask<Void, Void, List<Game>>() {
+                        @Override
+                        protected List<Game> doInBackground(Void... voids) {
+                            List<Game> allFilteredByPrice = Helper.getInstance(MainActivity.this).getAllGamesFilteredByPrice();
+                            return allFilteredByPrice;
+                        }
+
+                        @Override
+                        protected void onPostExecute(List<Game> games) {
+                            super.onPostExecute(games);
+                            mGameRecyclerAdapter.replaceData(games);
+                            mResultSize.setText("Number of Items: " + resultSize(games));
+                        }
+                    };
+                    taskAllFilteredByPrice.execute();
                 }
                 return true;
             case R.id.filter_platform:
                 if (!mSearchQuery.equals("")) {
-                    List<Game> filteredByPlatform = Helper.getInstance(this).
-                            itemSearchForNameOrTypeFilterByPlatform(mSearchQuery);
-                    mGameRecyclerAdapter.replaceData(filteredByPlatform);
-                    mResultSize.setText("Number of Items: " + resultSize(filteredByPlatform));
-                    //mResultSize.setText(R.string.search_size + resultSize(filteredByPrice));
+                    AsyncTask<String, Void, List<Game>> taskFilteredByPlatform = new AsyncTask<String, Void, List<Game>>() {
+                        @Override
+                        protected List<Game> doInBackground(String... strings) {
+                            List<Game> filteredByPlatform = Helper.getInstance(MainActivity.this).
+                                    itemSearchForNameOrTypeFilterByPlatform(strings[0]);
+                            return filteredByPlatform;
+                        }
+
+                        @Override
+                        protected void onPostExecute(List<Game> games) {
+                            super.onPostExecute(games);
+                            mGameRecyclerAdapter.replaceData(games);
+                            mResultSize.setText("Number of Items: " + resultSize(games));
+                        }
+                    };
+                    taskFilteredByPlatform.execute(mSearchQuery);
                 } else {
-                    List<Game> allFilteredByPlatform = Helper.getInstance(this).getAllGamesFilteredByPlatform();
-                    mGameRecyclerAdapter.replaceData(allFilteredByPlatform);
-                    mResultSize.setText("Number of Items: " + resultSize(allFilteredByPlatform));
+                    AsyncTask<Void, Void, List<Game>> taskAllFilteredByPlatform = new AsyncTask<Void, Void, List<Game>>() {
+                        @Override
+                        protected List<Game> doInBackground(Void... voids) {
+                            List<Game> allFilteredByPlatform = Helper.getInstance(MainActivity.this).getAllGamesFilteredByPlatform();
+                            return allFilteredByPlatform;
+                        }
+
+                        @Override
+                        protected void onPostExecute(List<Game> games) {
+                            super.onPostExecute(games);
+                            mGameRecyclerAdapter.replaceData(games);
+                            mResultSize.setText("Number of Items: " + resultSize(games));
+                        }
+                    };
+                taskAllFilteredByPlatform.execute();
                 }
                 return true;
             case R.id.filter_rating:
                 if (!mSearchQuery.equals("")) {
-                    List<Game> filteredByRating = Helper.getInstance(this).
-                            itemSearchForNameOrTypeFilterByRating(mSearchQuery);
-                    mGameRecyclerAdapter.replaceData(filteredByRating);
-                    mResultSize.setText("Number of Items: " + resultSize(filteredByRating));
+                    AsyncTask<String, Void, List<Game>> taskFilteredByRating = new AsyncTask<String, Void, List<Game>>() {
+                        @Override
+                        protected List<Game> doInBackground(String... strings) {
+                            List<Game> filteredByRating = Helper.getInstance(MainActivity.this).
+                                    itemSearchForNameOrTypeFilterByRating(strings[0]);
+                            return filteredByRating;
+                        }
+
+                        @Override
+                        protected void onPostExecute(List<Game> games) {
+                            super.onPostExecute(games);
+                            mGameRecyclerAdapter.replaceData(games);
+                            mResultSize.setText("Number of Items: " + resultSize(games));
+                        }
+                    };
+                    taskFilteredByRating.execute(mSearchQuery);
                 } else {
-                    List<Game> allFilteredByRating = Helper.getInstance(this).getAllGamesFilteredByRating();
-                    mGameRecyclerAdapter.replaceData(allFilteredByRating);
-                    mResultSize.setText("Number of Items: " + resultSize(allFilteredByRating));
+                    AsyncTask<Void, Void, List<Game>> taskAllFilteredByRating = new AsyncTask<Void, Void, List<Game>>() {
+                        @Override
+                        protected List<Game> doInBackground(Void... voids) {
+                            List<Game> allFilteredByRating = Helper.getInstance(MainActivity.this).getAllGamesFilteredByRating();
+                            return allFilteredByRating;
+                        }
+
+                        @Override
+                        protected void onPostExecute(List<Game> games) {
+                            super.onPostExecute(games);
+                            mGameRecyclerAdapter.replaceData(games);
+                            mResultSize.setText("Number of Items: " + resultSize(games));
+                        }
+                    };
+                    taskAllFilteredByRating.execute();
                 }
                 return true;
             default:
@@ -192,10 +267,23 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                List<Game> allGames = Helper.getInstance(MainActivity.this).getAllGames();
-                mGameRecyclerAdapter.replaceData(allGames);
-                mResultSize.setText("Number of Items: " + resultSize(allGames));
-                mSearchQuery="";
+
+                AsyncTask<Void, Void, List<Game>> taskAllGames = new AsyncTask<Void, Void, List<Game>>() {
+                    @Override
+                    protected List<Game> doInBackground(Void... voids) {
+                        List<Game> allGames = Helper.getInstance(MainActivity.this).getAllGames();
+                        return allGames;
+                    }
+
+                    @Override
+                    protected void onPostExecute(List<Game> games) {
+                        super.onPostExecute(games);
+                        mGameRecyclerAdapter.replaceData(games);
+                        mResultSize.setText("Number of Items: " + resultSize(games));
+                        mSearchQuery="";
+                    }
+                };
+                taskAllGames.execute();
                 return true;
             }
         });
@@ -213,11 +301,25 @@ public class MainActivity extends AppCompatActivity
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             //perform search
             String query = intent.getStringExtra(SearchManager.QUERY);
-            List<Game> searchList = Helper.getInstance(this).
-                    itemSearchForNameOrType(query);
+
+            AsyncTask<String, Void, List<Game>> taskSearch = new AsyncTask<String, Void, List<Game>>() {
+                @Override
+                protected List<Game> doInBackground(String... strings) {
+                    List<Game> searchList = Helper.getInstance(MainActivity.this).
+                            itemSearchForNameOrType(strings[0]);
+                    return searchList;
+                }
+
+                @Override
+                protected void onPostExecute(List<Game> games) {
+                    super.onPostExecute(games);
+                    mGameRecyclerAdapter.replaceData(games);
+                    mResultSize.setText("Number of Items: " + resultSize(games));
+                }
+            };
+            taskSearch.execute(query);
+
             mSearchQuery = intent.getStringExtra(SearchManager.QUERY);
-            mGameRecyclerAdapter.replaceData(searchList);
-            mResultSize.setText("Number of Items: " + resultSize(searchList));
             mSearcView.clearFocus();
         }
     }

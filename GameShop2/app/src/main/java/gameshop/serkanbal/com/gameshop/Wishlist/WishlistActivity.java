@@ -3,6 +3,7 @@ package gameshop.serkanbal.com.gameshop.Wishlist;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,43 +43,67 @@ public class WishlistActivity extends AppCompatActivity {
         mWishListSize = (TextView) findViewById(R.id.textWishlistSize);
         mBigHeart = (ImageView) findViewById(R.id.wishListBigHeart);
 
-        SharedPreferences sharedPreferences = this.getSharedPreferences("wishList",
-                Context.MODE_PRIVATE);
-        List<Integer> wishListItems = new ArrayList<>();
-        List<Game> allPossible = Helper.getInstance(this).getAllGames();
-        //Change hardcoded 17 to read from the size of the list!
-        for (Integer i = 1; i < allPossible.size() + 1; i++) {
-            if (sharedPreferences.getInt(i.toString(), -1) != -1) {
-                wishListItems.add((sharedPreferences.getInt(i.toString(), -1)));
+        AsyncTask<Void, Void, List<Game>> taskGetAllPossible = new AsyncTask<Void, Void, List<Game>>() {
+            @Override
+            protected List<Game> doInBackground(Void... voids) {
+                List<Game> allPossible = Helper.getInstance(WishlistActivity.this).getAllGames();
+                return allPossible;
             }
-        }
 
-        mWishList = new ArrayList<>();
-        for (int i = 0; i < wishListItems.size(); i++) {
-            Game game = Helper.getInstance(this).getCartGameById(wishListItems.get(i));
-            mWishList.add(game);
-        }
+            @Override
+            protected void onPostExecute(List<Game> games) {
+                super.onPostExecute(games);
+                SharedPreferences sharedPreferences = WishlistActivity.this.getSharedPreferences("wishList",
+                        Context.MODE_PRIVATE);
+                final List<Integer> wishListItems = new ArrayList<>();
+                //Change hardcoded 17 to read from the size of the list!
+                for (Integer i = 1; i < games.size() + 1; i++) {
+                    if (sharedPreferences.getInt(i.toString(), -1) != -1) {
+                        wishListItems.add((sharedPreferences.getInt(i.toString(), -1)));
+                    }
+                }
 
-        if (mWishList.size() == 0) {
-            mWishListSize.setText("Wish List is empty");
-            mBigHeart.setVisibility(View.VISIBLE);
-        } else {
-            mWishListSize.setText("Number of items: " + mWishList.size());
-        }
+                AsyncTask<Void, Void, List<Game>> taskFillWishlistItems = new AsyncTask<Void, Void, List<Game>>() {
+                    @Override
+                    protected List<Game> doInBackground(Void... voids) {
+                        List<Game> list = new ArrayList<>();
+                        for (int i = 0; i < wishListItems.size(); i++) {
+                            Game game = Helper.getInstance(WishlistActivity.this).getCartGameById(wishListItems.get(i));
+                            list.add(game);
+                        }
+                        return list;
+                    }
 
-        //Setup the CartRecyclerView
-        mWishListRecyclerView = (RecyclerView) findViewById(R.id.wishlistrecyclerview);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,
-                LinearLayoutManager.VERTICAL, false);
-        mWishListRecyclerView.setLayoutManager(linearLayoutManager);
-        mWishlistRecyclerAdapter = new WishlistRecyclerAdapter(mWishList, mWishListSize, mBigHeart);
-        ItemTouchHelper.Callback callback =
-                new WishlistItemTouchHelper(mWishlistRecyclerAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(mWishListRecyclerView);
+                    @Override
+                    protected void onPostExecute(List<Game> games) {
+                        super.onPostExecute(games);
+                        mWishList = games;
 
-        mWishListRecyclerView.setAdapter(mWishlistRecyclerAdapter);
+                        if (mWishList.size() == 0) {
+                            mWishListSize.setText("Wish List is empty");
+                            mBigHeart.setVisibility(View.VISIBLE);
+                        } else {
+                            mWishListSize.setText("Number of items: " + mWishList.size());
+                        }
 
+                        //Setup the CartRecyclerView
+                        mWishListRecyclerView = (RecyclerView) findViewById(R.id.wishlistrecyclerview);
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(WishlistActivity.this,
+                                LinearLayoutManager.VERTICAL, false);
+                        mWishListRecyclerView.setLayoutManager(linearLayoutManager);
+                        mWishlistRecyclerAdapter = new WishlistRecyclerAdapter(mWishList, mWishListSize, mBigHeart);
+                        ItemTouchHelper.Callback callback =
+                                new WishlistItemTouchHelper(mWishlistRecyclerAdapter);
+                        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+                        touchHelper.attachToRecyclerView(mWishListRecyclerView);
+
+                        mWishListRecyclerView.setAdapter(mWishlistRecyclerAdapter);
+                    }
+                };
+            taskFillWishlistItems.execute();
+            }
+        };
+        taskGetAllPossible.execute();
     }
 
     @Override
